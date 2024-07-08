@@ -1,0 +1,29 @@
+name: Docker
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'config/**'
+      - 'slurm/**'
+      - 'workflows/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Linting
+        uses: snakemake/snakemake-github-action@v1
+        with:
+          directory: '.test'
+          snakefile: 'workflow/Snakefile'
+          args: '--lint'
