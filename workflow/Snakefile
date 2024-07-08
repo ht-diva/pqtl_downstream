@@ -1,0 +1,20 @@
+from snakemake.utils import min_version
+
+##### set minimum snakemake version #####
+min_version("8.4.1")
+
+
+configfile: "config/config.yaml"
+
+
+include: "rules/common.smk"
+include: "rules/locus_breaker.smk"
+include: "rules/mr_instruments.smk"
+
+
+rule all:
+    input:
+        ws_path("break/collected_loci_excluding_mhc.csv"),
+        ws_path("MR_instruments_best_snps_from_LB.txt"),
+        ws_path("mapped_LB.txt"),
+        ws_path("mapped_annotated_LB.txt"),
