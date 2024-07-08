@@ -1,6 +1,6 @@
 run:
   LB: True
-  MR: False
+  MR: True
   delivery: False
 
 # paths
