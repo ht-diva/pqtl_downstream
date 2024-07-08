@@ -13,14 +13,14 @@ path_code: "workflow/scripts/"
 labels:
   chr_label: "'#CHR'"
   pos_label: "POS"
-  snpid_label: "SNPID"
+#  snpid_label: "SNPID"
 #  key_label: "PREVIOUS_ID"
 #  ea_label: "EA"
 #  oa_label: "NEA"
 #  eaf_label: "EAF"
 #  beta_label: "BETA"
 #  se_label: "SE"
-#  p_label: "MLOG10P"
+  p_label: "MLOG10P"
 #  n_label: "N"
 thresholds:
   p1: 1.256913021618904e-11

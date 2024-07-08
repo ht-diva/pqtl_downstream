@@ -16,7 +16,7 @@ rule select_best_SNP_from_LocusBreaker:
         "../envs/r_environment.yml"
     shell:
         """
-         Rscript workflow/scripts/s01_best_snp_locus_breaker_for_MR.R \
+         Rscript workflow/scripts/MR/s01_best_snp_locus_breaker_for_MR.R \
             --input {input.lb} \
             --path {params.sumstats_path} \
             --array_path {params.path_to_targets_list} \
