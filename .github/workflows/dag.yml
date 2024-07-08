@@ -29,10 +29,13 @@ jobs:
           activate-environment: snakemake
           environment-file: environment.yml
 
+      - name: check solution
+        run: |
+            mamba env export
+
       - name: Make dag
         id: make_dag
         run: |
-            conda activate snakemake
             snakemake --dag | dot -Tsvg > dag.svg
 
       - name: Check for changes
