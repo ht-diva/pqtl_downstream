@@ -1,0 +1,62 @@
+name: Docker
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'config/**'
+      - 'workflows/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: create environment with mamba
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          mamba-version: "*"
+          channels: conda-forge,bioconda,defaults
+          auto-activate-base: false
+          activate-environment: snakemake
+          environment-file: environment.yaml
+
+      - name: Make dag
+        id: make_dag
+        run: |
+            make dag
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+            if [[ -n "$(git diff --exit-code)" ]]; then
+              echo "Changes detected."
+              echo "::set-output name=has_changes::true"
+            else
+              echo "No changes detected."
+              echo "::set-output name=has_changes::false"
+            fi
+
+      # Commit and Push Changes
+      - name: Commit and Push Changes
+        run: |
+          # configure user
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+
+          # stage any file changes to be committed
+          git add .
+
+          # make commit with staged changes
+          git commit -m 'update dag'
+
+          # push the commit back up to source GitHub repository
+          git push
