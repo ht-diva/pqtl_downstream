@@ -23,7 +23,7 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Make dag
+      - name: create environment with mamba
         uses: conda-incubator/setup-miniconda@v2
         with:
           mamba-version: "*"
