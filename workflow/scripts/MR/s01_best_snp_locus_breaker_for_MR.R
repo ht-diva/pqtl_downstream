@@ -1,7 +1,7 @@
 suppressMessages(library(data.table))
 suppressMessages(library(optparse))
 suppressMessages(library(IRanges))
-source("workflow/scripts/s00_mapping_functions.R")
+source("workflow/scripts/MR/s00_mapping_functions.R")
 
 option_list <- list(
   make_option("--path", default=NULL, help="Sumstats path"),
