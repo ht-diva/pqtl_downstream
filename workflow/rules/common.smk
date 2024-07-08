@@ -19,6 +19,18 @@ analytes = (
 )
 
 
+def get_final_output():
+    final_output = []
+
+    if config.get("input") == "LB":
+        final_output.append(ws_path("break/collected_loci_excluding_mhc.csv")),
+        final_output.append(ws_path("MR_instruments_best_snps_from_LB.txt")),
+        final_output.append(ws_path("mapped_LB.txt")),
+        final_output.append(ws_path("mapped_annotated_LB.txt")),
+
+    return final_output
+
+
 def get_sumstats(wildcards):
     return analytes.loc[wildcards.seqid, "sumstat_path"]
 

@@ -1,6 +1,6 @@
+input: "LB" # This flag can be LB or conditional
+
 run:
-  LB: True
-  MR: False
   delivery: False
 
 # paths
