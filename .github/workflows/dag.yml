@@ -10,6 +10,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
     permissions:
       contents: read
       packages: write
@@ -20,7 +23,7 @@ jobs:
         with:
           submodules: recursive
 
-      - name: create environment with mamba
+      - name: Make dag
         uses: conda-incubator/setup-miniconda@v2
         with:
           mamba-version: "*"
@@ -33,8 +36,7 @@ jobs:
         run: |
             mamba env export
 
-      - name: Make dag
-        id: make_dag
+      - name: Make the dag
         run: |
             snakemake --dag | dot -Tsvg > dag.svg
 
