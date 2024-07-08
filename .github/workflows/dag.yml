@@ -32,7 +32,8 @@ jobs:
       - name: Make dag
         id: make_dag
         run: |
-            make dag
+            conda activate snakemake
+            snakemake --dag | dot -Tsvg > dag.svg
 
       - name: Check for changes
         id: check_changes
@@ -47,6 +48,7 @@ jobs:
 
       # Commit and Push Changes
       - name: Commit and Push Changes
+        if: steps.check_changes.outputs.has_changes == 'true'
         run: |
           # configure user
           git config --global user.name "${{ github.actor }}"
