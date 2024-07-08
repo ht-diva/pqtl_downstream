@@ -10,7 +10,7 @@ rule select_best_SNP_from_LocusBreaker:
         runtimes=lambda wc, attempt: attempt * 20,
     params:
         NEF=config.get("params").get("nef"),
-        sumstats_path=config.get("sumstat_path"),
+        sumstats_path=config.get("sumstats_path"),
         path_to_targets_list=config.get("array_list_path"),
     conda:
         "../envs/r_environment.yml"
