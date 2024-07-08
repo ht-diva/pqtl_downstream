@@ -4,7 +4,7 @@ import pandas as pd
 
 # Define input for the rules
 data = []
-with open(config["sumstats_path"], "r") as fp:
+with open(config["sumstats_list"], "r") as fp:
     lines = fp.readlines()
 
 for line in lines:

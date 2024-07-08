@@ -6,9 +6,10 @@ run:
 # paths
 workspace_path: 'results'
 destination_path: 'destination'
-sumstats_path: 'config/local.txt'
+
 
 # LB
+sumstats_list: 'config/local.txt'
 path_code: "workflow/scripts/"
 labels:
   chr_label: "'#CHR'"
@@ -32,6 +33,7 @@ thresholds:
   hole: 250000
 
 # MR
+sumstats_path: '/exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped/output'
 mapping_filepath: 'data/MR/mapped_gene_file_GRCh37_21052025.txt'
 array_list_path: "data/MR/"
 params:
