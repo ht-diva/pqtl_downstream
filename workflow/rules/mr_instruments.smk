@@ -10,15 +10,16 @@ rule select_best_SNP_from_LocusBreaker:
         runtimes=lambda wc, attempt: attempt * 20,
     params:
         NEF=config.get("params").get("nef"),
-        sumstats_path=config.get("sumstats_path"),
+        sumstats_list=config.get("sumstats_list"),
         path_to_targets_list=config.get("array_list_path"),
     conda:
         "../envs/r_environment.yml"
     shell:
         """
+         sumstats_path=$(dirname $(dirname $(head -n 1 {params.sumstats_list})));
          Rscript workflow/scripts/MR/s01_best_snp_locus_breaker_for_MR.R \
             --input {input.lb} \
-            --path {params.sumstats_path} \
+            --path $sumstats_path \
             --array_path {params.path_to_targets_list} \
             --mapping {input.mapping} \
             --NEF {params.NEF} \
