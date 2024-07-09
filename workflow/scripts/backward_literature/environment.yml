@@ -1,0 +1,14 @@
+name: backward_literature
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python<=3.10
+  - pip==24
+  - pip:
+      - pandas==2.2
+      - pyarrow==15.0
+      - ruamel.yaml==0.18.5
+      - click==8.1.7
+      - loguru==0.7.2
+      - cloup==3.0.4

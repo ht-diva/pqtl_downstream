@@ -24,9 +24,10 @@ def get_final_output():
 
     if config.get("input") == "LB":
         final_output.append(ws_path("break/collected_loci_excluding_mhc.csv")),
-        final_output.append(ws_path("MR_instruments_best_snps_from_LB.txt")),
-        final_output.append(ws_path("mapped_LB.txt")),
-        final_output.append(ws_path("mapped_annotated_LB.txt")),
+        final_output.append(rules.select_best_SNP_from_LocusBreaker.output.MR),
+        final_output.append(rules.select_best_SNP_from_LocusBreaker.output.mapped),
+        final_output.append(rules.select_best_SNP_from_LocusBreaker.output.annotated),
+        final_output.append(rules.backward_literature_LB.output)
 
     return final_output
 

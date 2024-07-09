@@ -27,3 +27,9 @@ set-resources:
     collect_loci:
         mem_mb: 8192 + attempt * 2048
         threads: 1
+    select_best_SNP_from_LocusBreaker:
+        mem_mb: 2048 + attempt * 2048
+        threads: 1
+    backward_literature_LB:
+        mem_mb: 2048 + attempt * 2048
+        threads: 1

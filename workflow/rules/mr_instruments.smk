@@ -4,8 +4,8 @@ rule select_best_SNP_from_LocusBreaker:
         mapping=config.get("mapping_filepath"),
     output:
         MR=ws_path("MR_instruments_best_snps_from_LB.txt"),
-        mapped=ws_path("mapped_LB.txt"),
-        annotated=ws_path("mapped_annotated_LB.txt"),
+        mapped=ws_path("mapped_LB.csv"),
+        annotated=ws_path("mapped_annotated_LB.csv"),
     resources:
         runtimes=lambda wc, attempt: attempt * 20,
     params:
