@@ -21,7 +21,9 @@ default-resources:
     threads: 1
     runtime: attempt * 5
 set-resources:
-    # for each rule set the resources that you need
-    snps_bonferroni_significant:
+    break_locus:
         mem_mb: 1024 + attempt * 2048
-        threads: *cores
+        threads: 1
+    collect_loci:
+        mem_mb: 8192 + attempt * 2048
+        threads: 1
