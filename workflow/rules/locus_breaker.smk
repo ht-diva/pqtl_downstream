@@ -7,7 +7,6 @@ rule break_locus:
     conda:
         "../envs/locus_breaker.yml"
     params:
-        codes=config.get("path_code"),
         phenotype_id="{seqid}",
         outdir=ws_path("break/{seqid}"),
         p1=config.get("thresholds").get("p1"),
@@ -24,7 +23,6 @@ rule break_locus:
         """
         # Rscript=`ls /conda-envs/*/bin/Rscript`;
         Rscript workflow/scripts/LB/s01_locus_breaker.R \
-            --pipeline_path {params.codes} \
             --input {input.gwas} \
             --phenotype_id '{params.phenotype_id}' \
             --p_thresh1 {params.p1} \

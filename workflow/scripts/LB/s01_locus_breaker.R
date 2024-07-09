@@ -82,7 +82,6 @@ locus.breaker <- function(
 }
 
 option_list <- list(
-  make_option("--pipeline_path", default=NULL, help="Path where Rscript lives"),
   make_option("--input", default=NULL, help="Path and file name of GWAS summary statistics"),
   make_option("--p_thresh1", default=5e-08, help="Significant p-value threshold for top hits"),
   make_option("--p_thresh2", default=1e-05, help="P-value threshold for loci borders"),

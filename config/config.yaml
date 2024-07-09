@@ -10,7 +10,6 @@ destination_path: 'destination'
 
 # LB
 sumstats_list: 'config/local.txt'
-path_code: "workflow/scripts/"
 labels:
   chr_label: "'#CHR'"
   pos_label: "POS"
