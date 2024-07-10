@@ -11,7 +11,7 @@ rule backward_literature_LB:
     resources:
         runtime=lambda wc, attempt: attempt * 60,
     shell:
-        "python workflow/scripts/backward_literature/Backward_literature.py "
+        "python workflow/scripts/backward_literature/Backward_Literature.py "
         "-c {params.config_file} "
         "-f {input} "
         "-t {params.input_type} "
