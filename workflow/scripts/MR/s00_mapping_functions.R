@@ -27,49 +27,49 @@ assay_annotation_on_dataset <-
     lit$new_target <- rep("new", nrow(lit))
     lit$new_target <-
       ifelse(
-        lit$study_id %in% list_k5 &
-          lit$study_id %in% list_k1,
+        lit$phenotype_id %in% list_k5 &
+          lit$phenotype_id %in% list_k1,
         "already_in_5k_and_1k",
         lit$new_target
       )
     lit$new_target <-
       ifelse(
-        lit$study_id %in% list_k5 &
-          !lit$study_id %in% list_k1,
+        lit$phenotype_id %in% list_k5 &
+          !lit$phenotype_id %in% list_k1,
         "already_in_5k",
         lit$new_target
       )
     lit$new_target <-
       ifelse(
-        lit$study_id %in% list_k1 &
-          !lit$study_id %in% list_k5,
+        lit$phenotype_id %in% list_k1 &
+          !lit$phenotype_id %in% list_k5,
         "already_in_1k",
         lit$new_target
       )
     lit$new_target <-
       ifelse(
         lit$new_target == "already_in_5k" &
-          lit$study_id %in% list_k4,
+          lit$phenotype_id %in% list_k4,
         "already_in_5k_and_4k",
         lit$new_target
       )
     lit$new_target <-
       ifelse(
         lit$new_target == "already_in_1k" &
-          lit$study_id %in% list_k4,
+          lit$phenotype_id %in% list_k4,
         "already_in_4k_and_1k",
         lit$new_target
       )
     lit$new_target <-
       ifelse(
         lit$new_target == "already_in_5k_and_1k" &
-          lit$study_id %in% list_k4,
+          lit$phenotype_id %in% list_k4,
         "already_in_5k_4k_and_1k",
         lit$new_target
       )
     lit$new_target <-
       ifelse(lit$new_target == "new" &
-               lit$study_id %in% list_k4,
+               lit$phenotype_id %in% list_k4,
              "already_in_4k",
              lit$new_target)
     lit$new <- ifelse(lit$new_target == "new", TRUE, FALSE)
