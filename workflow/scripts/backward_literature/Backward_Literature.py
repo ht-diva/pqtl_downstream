@@ -165,3 +165,6 @@ def update_table_with_results(table, index, results, chr, pos_column):
     table.at[index, "matching_signals"] = ",".join(pos_signals)
     table.at[index, "matching_study"] = ",".join(cohorts)
     table.at[index, "matching_number_ids"] = ",".join(number_ids)
+
+if __name__ == "__main__":
+    backward_literature_review_annotation()
