@@ -37,6 +37,7 @@ mapping_filepath: 'data/MR/mapped_gene_file_GRCh37_21052025.txt'
 array_list_path: "data/MR/"
 params:
   nef: 3978
+  Isquare: 90
 
 # Backward literature
 BL_config_file: 'config/config_backward_literature.json'

@@ -12,6 +12,7 @@ include: "rules/common.smk"
 include: "rules/locus_breaker.smk"
 include: "rules/mr_instruments.smk"
 include: "rules/backward_literature.smk"
+include: "rules/heterogeneity.smk"
 
 
 rule all:
