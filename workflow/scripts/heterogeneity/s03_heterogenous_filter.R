@@ -11,7 +11,7 @@ opt = parse_args(opt_parser);
 LB<-fread(opt$input)
 NEF<-opt$NEF
 threshold<-(-log10((5*10^(-8))/as.numeric(NEF)))
-I2_threshold<-opt$I2_thresh
+I2_threshold<-opt$Isquare_thresh
 ##the rule will be more generalizable if we do not apply any filtering for significancy
 heterogenous<-LB[LB$MLOG10P>=threshold&LB$HETISQ>=I2_threshold,]
 fwrite(heterogenous,opt$het_output)
