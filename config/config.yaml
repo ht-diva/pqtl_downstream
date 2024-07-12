@@ -9,7 +9,7 @@ destination_path: 'destination'
 
 
 # LB
-sumstats_list: 'config/local.txt'
+sumstats_list: 'config/example.txt'
 labels:
   chr_label: "'#CHR'"
   pos_label: "POS"

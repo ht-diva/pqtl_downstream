@@ -1,2 +1,16 @@
 /exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped/output/seq.13435.31/seq.13435.31.gwaslab.tsv.bgz
 /exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped/output/seq.3054.3/seq.3054.3.gwaslab.tsv.bgz
+/exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped/output/seq.6556.5/seq.6556.5.gwaslab.tsv.bgz
+/exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped/output/seq.10428.1/seq.10428.1.gwaslab.tsv.bgz
+/exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped/output/seq.9313.27/seq.9313.27.gwaslab.tsv.bgz
+/exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped/output/seq.23336.2/seq.23336.2.gwaslab.tsv.bgz
+/exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped/output/seq.10000.28/seq.10000.28.gwaslab.tsv.bgz
+/exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped/output/seq.10001.7/seq.10001.7.gwaslab.tsv.bgz
+/exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped/output/seq.10006.25/seq.10006.25.gwaslab.tsv.bgz
+/exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped/output/seq.10008.43/seq.10008.43.gwaslab.tsv.bgz
+/exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped/output/seq.10010.10/seq.10010.10.gwaslab.tsv.bgz
+/exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped/output/seq.10011.65/seq.10011.65.gwaslab.tsv.bgz
+/exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped/output/seq.10012.5/seq.10012.5.gwaslab.tsv.bgz
+/exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped/output/seq.10014.31/seq.10014.31.gwaslab.tsv.bgz
+/exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped/output/seq.10015.119/seq.10015.119.gwaslab.tsv.bgz
+/exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped/output/seq.10022.207/seq.10022.207.gwaslab.tsv.bgz
