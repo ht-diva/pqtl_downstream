@@ -18,7 +18,7 @@ rule break_locus:
     log:
         ws_path("logs/break/{seqid}.log"),
     resources:
-        runtime=lambda wc, attempt: attempt * 30,
+        runtime=lambda wc, attempt: attempt * 60,
     shell:
         """
         # Rscript=`ls /conda-envs/*/bin/Rscript`;
@@ -43,6 +43,6 @@ rule collect_loci:
     conda:
         "../envs/locus_breaker.yml"
     resources:
-        runtime=lambda wc, attempt: attempt * 30,
+        runtime=lambda wc, attempt: attempt * 60,
     script:
         "../scripts/LB/s02_collect_loci.R"
