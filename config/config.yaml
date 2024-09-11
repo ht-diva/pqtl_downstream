@@ -11,7 +11,7 @@ destination_path: 'destination'
 # LB
 sumstats_list: 'config/example.txt'
 labels:
-  chr_label: "'#CHR'"
+  chr_label: "'##CHR'"
   pos_label: "POS"
 #  snpid_label: "SNPID"
 #  key_label: "PREVIOUS_ID"
