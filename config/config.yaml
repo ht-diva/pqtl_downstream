@@ -41,3 +41,8 @@ params:
 
 # Backward literature
 BL_config_file: 'config/config_backward_literature.json'
+
+# Single studies to be concatenated
+single_studies:
+  - CHRIS
+  - INTERVAL
