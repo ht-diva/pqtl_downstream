@@ -2,9 +2,9 @@
 
 # INPUT
 file_lit="${snakemake_input[0]}"
-study="${file_lit//[^a-zA-Z0-9]/_}"
+study="${snakemake_output[0]//[^a-zA-Z0-9]/_}"
 study=(${study//_/ })
-study="${study[7]}"
+study="${study[8]}"
 #study=INTERVAL  # Define the study
 # study=CHRIS
 
@@ -13,7 +13,7 @@ chr_col_name="chr"
 pos_col_name="POS"
 snpid_col_name="SNPID"
 
-gwas_dir=/exchange/healthds/pQTL/results/${study}/qced_sumstats/outputs/
+gwas_dir=/exchange/healthds/pQTL/results/"${study}"/qced_sumstats/outputs/
 
 # OUTPUT
 out_dir=$TMPDIR
