@@ -81,7 +81,7 @@ def process_regional_table(conn, config, pos_column):
     process_table(conn, regional_table, start_col, end_col, protein_col, pos_column, cohorts)
 
     output_path = config["regional_table"]["file_path"].replace('.csv', '_lit_annotated.csv')
-    regional_table.to_csv(output_path, index=False)
+    regional_table.to_csv(output_path, index=False, sep=';')
     print(f"Results updated and saved to {output_path}")
 
 
