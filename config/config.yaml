@@ -11,7 +11,7 @@ destination_path: 'destination'
 # LB
 sumstats_list: 'config/example.txt'
 labels:
-  chr_label: "'#CHR'"
+  chr_label: "'##CHR'"
   pos_label: "POS"
 #  snpid_label: "SNPID"
 #  key_label: "PREVIOUS_ID"
@@ -41,3 +41,8 @@ params:
 
 # Backward literature
 BL_config_file: 'config/config_backward_literature.json'
+
+# Single studies to be concatenated
+single_studies:
+  - CHRIS
+  - INTERVAL

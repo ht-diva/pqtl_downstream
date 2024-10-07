@@ -27,8 +27,16 @@ def get_final_output():
         final_output.append(rules.select_best_SNP_from_LocusBreaker.output.MR),
         final_output.append(rules.select_best_SNP_from_LocusBreaker.output.mapped),
         final_output.append(rules.select_best_SNP_from_LocusBreaker.output.annotated),
-        final_output.append(rules.backward_literature_LB.output)
-        final_output.append(rules.heterogenous_filter.output)
+        final_output.append(rules.backward_literature_LB.output),
+        final_output.append(rules.heterogenous_filter.output),
+        final_output.extend(
+            expand(
+                ws_path(
+                    "mapped_annotated_LB_lit_annotated_single_studies_{single_studies}.csv"
+                ),
+                single_studies=config.get("single_studies"),
+            )
+        ),
 
     return final_output
 
