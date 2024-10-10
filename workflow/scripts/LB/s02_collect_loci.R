@@ -73,8 +73,8 @@ if (nlp12) {
   cat("Removing lead SNPs in NLP12 region.\n")
 } 
 
-if (nlp12|mhc){
-cat(nrow(loci), "remaining after filters.")
+if (nlp12|mhc) {
+cat(nrow(loci), "remaining after filters.\n")
 }
 
 #cat(

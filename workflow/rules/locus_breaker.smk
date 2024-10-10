@@ -15,9 +15,6 @@ rule break_locus:
         p_label=config.get("labels").get("p_label"),
         chr_label=config.get("labels").get("chr_label"),
         pos_label=config.get("labels").get("pos_label"),
-        MHC=config.get("loci_selection").get("NLP12"),
-        build=config.get("loci_selection").get("NLP12"),
-        NLP12=config.get("build"),
     log:
         ws_path("logs/break/{seqid}.log"),
     resources:
@@ -45,6 +42,10 @@ rule collect_loci:
         ofile=ws_path("break/collected_loci_excluding_mhc.csv"),
     conda:
         "../envs/locus_breaker.yml"
+    params:
+        MHC=config.get("loci_selection").get("MHC"),
+        build=config.get("loci_selection").get("build"),
+        NLP12=config.get("loci_selection").get("NLP12"),
     resources:
         runtime=lambda wc, attempt: attempt * 60,
     script:
