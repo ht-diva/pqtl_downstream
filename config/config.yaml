@@ -4,8 +4,8 @@ run:
   delivery: False
 
 # paths
-workspace_path: 'results'
-destination_path: 'destination'
+workspace_path: 'results_test_MHC'
+destination_path: 'destination_test_MHC'
 
 
 # LB
@@ -30,6 +30,9 @@ thresholds:
 #  maf: 1e-04
 #  ppp: 0.99
   hole: 250000
+loci_selection:
+  NLP12: 0
+  MHC: 0
 
 # MR
 #sumstats_path: '/exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped/output'
@@ -46,3 +49,5 @@ BL_config_file: 'config/config_backward_literature.json'
 single_studies:
   - CHRIS
   - INTERVAL
+
+build: 37
