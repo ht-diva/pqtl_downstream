@@ -42,6 +42,10 @@ rule collect_loci:
         ofile=ws_path("break/collected_loci_excluding_mhc.csv"),
     conda:
         "../envs/locus_breaker.yml"
+    params:
+        MHC=config.get("loci_selection").get("MHC"),
+        build=config.get("loci_selection").get("build"),
+        NLP12=config.get("loci_selection").get("NLP12"),
     resources:
         runtime=lambda wc, attempt: attempt * 60,
     script:
