@@ -1,6 +1,11 @@
+if config.get("input") == "LB":
+    input_MR = config.get("LB_file")
+elif config.get("input") == "run_LB":
+    input_MR = rules.collect_loci.output.ofile
+
 rule select_best_SNP_from_LocusBreaker:
     input:
-        lb=rules.collect_loci.output.ofile,
+        lb=input_MR,
         mapping=config.get("mapping_filepath"),
     output:
         MR=ws_path("MR_instruments_best_snps_from_LB.txt"),

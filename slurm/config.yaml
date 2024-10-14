@@ -24,6 +24,9 @@ set-resources:
     break_locus:
         mem_mb: 4096 + attempt * 2048
         threads: 1
+    rename_LB:
+        mem_mb: 2048  + attempt * 2048
+        threads: 1
     collect_loci:
         mem_mb: 8192 + attempt * 2048
         threads: 1
@@ -34,5 +37,5 @@ set-resources:
         mem_mb: 2048 + attempt * 2048
         threads: 1
     heterogenous_filter:
-      mem_mb: 2048 + attempt * 2048
-      threads: 1
+        mem_mb: 2048 + attempt * 2048
+        threads: 1

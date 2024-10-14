@@ -1,4 +1,5 @@
-input: "LB" # This flag can be LB or conditional
+input: "run_LB" # This flag can be LB or conditional or run_LB
+LB_file: "data/collected_loci_excluding_mhc.csv"
 
 run:
   delivery: False
