@@ -10,7 +10,6 @@ rule select_best_SNP_from_LocusBreaker:
     output:
         MR=ws_path("MR_instruments_best_snps_from_LB.txt"),
         mapped=ws_path("mapped_LB.csv"),
-        annotated=ws_path("mapped_annotated_LB.csv"),
     resources:
         runtimes=lambda wc, attempt: attempt * 20,
     params:
@@ -29,6 +28,5 @@ rule select_best_SNP_from_LocusBreaker:
             --mapping {input.mapping} \
             --NEF {params.NEF} \
             --map_output {output.mapped} \
-            --MR_output {output.MR} \
-            --annot_output {output.annotated}
+            --MR_output {output.MR} 
    """
