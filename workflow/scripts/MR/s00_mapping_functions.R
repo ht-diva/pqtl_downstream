@@ -78,6 +78,6 @@ assay_annotation_on_dataset <-
 
 assay_annotation_on_dataset_by_uniprot <-
   function(lit, list_k1_k4_k5_uniprot) {
-    lit$new_uniprot <- ifelse(lit$UniProt_ID$in$list_k1_k4_k5_uniprot,"UniProt_previously_assayed","New_UniProt")
+    lit$new_uniprot <- ifelse(lit$UniProt_ID%in%list_k1_k4_k5_uniprot,"UniProt_previously_assayed","New_UniProt")
     return(lit)
   }

@@ -15,7 +15,6 @@ rule select_best_SNP_from_LocusBreaker:
     params:
         NEF=config.get("params").get("nef"),
         sumstats_list=config.get("sumstats_list"),
-        path_to_targets_list=config.get("array_list_path"),
     conda:
         "../envs/r_environment.yml"
     shell:
@@ -24,7 +23,6 @@ rule select_best_SNP_from_LocusBreaker:
          Rscript workflow/scripts/MR/s01_best_snp_locus_breaker_for_MR.R \
             --input {input.lb} \
             --path $sumstats_path \
-            --array_path {params.path_to_targets_list} \
             --mapping {input.mapping} \
             --NEF {params.NEF} \
             --map_output {output.mapped} \
