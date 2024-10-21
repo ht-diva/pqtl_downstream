@@ -1,6 +1,6 @@
 rule backward_literature_LB:
     input:
-        rules.select_best_SNP_from_LocusBreaker.output.annotated,
+        rules.version_array.output.annotated,
     output:
         ws_path("mapped_annotated_LB_lit_annotated.csv"),
     conda:

@@ -26,7 +26,7 @@ def get_final_output():
         final_output.append(rules.collect_loci.output.ofile),
         final_output.append(rules.select_best_SNP_from_LocusBreaker.output.MR),
         final_output.append(rules.select_best_SNP_from_LocusBreaker.output.mapped),
-        final_output.append(rules.select_best_SNP_from_LocusBreaker.output.annotated),
+        final_output.append(rules.version_array.output.annotated),
         final_output.append(rules.backward_literature_LB.output),
         final_output.append(rules.heterogenous_filter.output),
         final_output.extend(
@@ -41,7 +41,7 @@ def get_final_output():
     if config.get("input") == "LB":
         final_output.append(rules.select_best_SNP_from_LocusBreaker.output.MR),
         final_output.append(rules.select_best_SNP_from_LocusBreaker.output.mapped),
-        final_output.append(rules.select_best_SNP_from_LocusBreaker.output.annotated),
+        final_output.append(rules.version_array.output.annotated),
         final_output.append(rules.backward_literature_LB.output),
         final_output.append(rules.heterogenous_filter.output),
         final_output.extend(

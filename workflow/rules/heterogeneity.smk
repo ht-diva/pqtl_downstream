@@ -1,6 +1,6 @@
 rule heterogenous_filter:
     input:
-        rules.select_best_SNP_from_LocusBreaker.output.annotated,
+        rules.version_array.output.annotated,
     output:
         ws_path("heterogenous_LB.txt"),
     resources:

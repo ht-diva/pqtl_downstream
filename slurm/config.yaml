@@ -36,3 +36,6 @@ set-resources:
     heterogenous_filter:
         mem_mb: 2048 + attempt * 2048
         threads: 1
+    version_array:
+        mem_mb: 2048 + attempt * 2048
+        threads: 1

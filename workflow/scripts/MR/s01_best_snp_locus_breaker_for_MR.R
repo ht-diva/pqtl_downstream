@@ -9,19 +9,16 @@ option_list <- list(
   make_option("--NEF", default=NULL, help="Number of effective tests to apply Bonferroni correction"),
   make_option("--MR_output", default=NULL, help="Output path and name for list of instruments from Locus Breaker"),
   make_option("--map_output", default=NULL, help="Output path and name for cis trans mapping from Locus Breaker"),
-  make_option("--annot_output", default=NULL, help="Output path and name for cis trans mapping and annotation from Locus Breaker"),
-  make_option("--mapping", default=NULL, help="Mapping file path for cis and trans"),
-  make_option("--array_path", default=NULL, help="Path to the folder containing the list of targets per array"))
+  make_option("--mapping", default=NULL, help="Mapping file path for cis and trans"))
 opt_parser = OptionParser(option_list=option_list);
 opt = parse_args(opt_parser);
 LB<-fread(opt$input)
 NEF<-opt$NEF
 path_to_sumstats<-opt$path
 map_path<-opt$map_output
-annot_path<-opt$annot_output
 output_path<-opt$MR_output
 mapping<-fread(opt$mapping)
-array_path<-opt$array_path
+
 ####################################
 ###loading and parameters########
 ##Locus_breaker results
@@ -46,17 +43,6 @@ for (i in 1:nrow(LB)){
 #table(LB$cis_or_trans)
 ##save mapped file
 fwrite(LB,map_path)
-
-##array version annotation
-##load list of targets per array
-list_k1<-colnames(fread(paste(array_path,"list_k1.txt",sep="/")))
-list_k4<-colnames(fread(paste(array_path,"list_k4.txt",sep="/")))
-list_k5<-colnames(fread(paste(array_path,"list_k5.txt",sep="/")))
-list_k7<-colnames(fread(paste(array_path,"list_k7.txt",sep="/")))
-##annotate
-annot<-assay_annotation_on_dataset(LB,list_k7,list_k5,list_k4,list_k1)
-##save annotated file
-fwrite(annot,annot_path)
 
 ##filtering only cis
 LB<-LB[LB$cis_or_trans=="cis",]

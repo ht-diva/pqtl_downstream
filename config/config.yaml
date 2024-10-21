@@ -1,4 +1,4 @@
-input: "run_LB" # This flag can be LB or conditional or run_LB
+input: "LB" # This flag can be LB or conditional or run_LB
 LB_file: "data/collected_loci_excluding_mhc.csv"
 
 run:
@@ -40,7 +40,7 @@ loci_selection:
 # MR
 #sumstats_path: '/exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped/output'
 mapping_filepath: 'data/MR/mapped_gene_file_GRCh37_21052025.txt'
-array_list_path: "data/MR/"
+array_list_path: "data/MR"
 params:
   nef: 3978
   Isquare: 90
