@@ -26,4 +26,3 @@ annot<-assay_annotation_on_dataset(LB,list_k7,list_k5,list_k4,list_k1)
 annot<-assay_annotation_on_dataset_by_uniprot(annot,list_k1_k4_k5_uniprot)
 ##save annotated file
 fwrite(annot,annot_path)
-

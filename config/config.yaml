@@ -41,6 +41,8 @@ loci_selection:
 #sumstats_path: '/exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped/output'
 mapping_filepath: 'data/MR/mapped_gene_file_GRCh37_21052025.txt'
 array_list_path: "data/MR"
+gtf_file: '/exchange/healthds/public_data/reference_genomes/GRCh37/GCF_000001405.25_GRCh37.p13_genomic.gtf'
+uniprot_file: '/exchange/healthds/pQTL/pQTL_workplace/protein_annotation/uniprotkb_AND_reviewed_true_AND_model_o_2024_09_09.tsv'
 params:
   nef: 3978
   Isquare: 90
@@ -52,3 +54,14 @@ BL_config_file: 'config/config_backward_literature.json'
 single_studies:
   - CHRIS
   - INTERVAL
+
+# hotspot_finder
+hotspot_finder:
+  hotspot_window_size: 5000000
+  chr_col: "chr"
+  start_col: "start"
+  end_col: "end"
+  hotspot_threshold: 50
+  lonespot_window_size: 10000000
+  lonespot_threshold: 1
+  save_results: True

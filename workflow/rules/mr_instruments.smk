@@ -3,6 +3,7 @@ if config.get("input") == "LB":
 elif config.get("input") == "run_LB":
     input_MR = rules.collect_loci.output.ofile
 
+
 rule select_best_SNP_from_LocusBreaker:
     input:
         lb=input_MR,
@@ -26,5 +27,5 @@ rule select_best_SNP_from_LocusBreaker:
             --mapping {input.mapping} \
             --NEF {params.NEF} \
             --map_output {output.mapped} \
-            --MR_output {output.MR} 
+            --MR_output {output.MR}
    """
