@@ -4,7 +4,7 @@ rule heterogenous_filter:
     output:
         ws_path("heterogenous_LB.txt"),
     resources:
-        runtimes=lambda wc, attempt: attempt * 20,
+        runtime=lambda wc, attempt: attempt * 20,
     params:
         NEF=config.get("params").get("nef"),
         Isquare=config.get("params").get("Isquare"),

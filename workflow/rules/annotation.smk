@@ -4,7 +4,7 @@ rule version_array:
     output:
         annotated=ws_path("mapped_annotated_LB.csv"),
     resources:
-        runtimes=lambda wc, attempt: attempt * 20,
+        runtime=lambda wc, attempt: attempt * 20,
     params:
         path_to_targets_list=config.get("array_list_path"),
     conda:
@@ -24,7 +24,7 @@ rule gene_and_protein_annotation:
     output:
         annotated=ws_path("mapped_annotated_LB_gp_ann.csv"),
     resources:
-        runtimes=lambda wc, attempt: attempt * 20,
+        runtime=lambda wc, attempt: attempt * 20,
     params:
         mapping_file=config.get("mapping_filepath"),
         gtf_file=config.get("gtf_file"),

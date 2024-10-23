@@ -12,7 +12,7 @@ rule select_best_SNP_from_LocusBreaker:
         MR=ws_path("MR_instruments_best_snps_from_LB.txt"),
         mapped=ws_path("mapped_LB.csv"),
     resources:
-        runtimes=lambda wc, attempt: attempt * 20,
+        runtime=lambda wc, attempt: attempt * 20,
     params:
         NEF=config.get("params").get("nef"),
         sumstats_list=config.get("sumstats_list"),
