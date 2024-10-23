@@ -34,7 +34,7 @@ rule gene_and_protein_annotation:
         "../envs/r_environment.yml"
     shell:
         """
-         Rscript workflow/scripts/gp_annotation/gene_annotation_.R \
+         Rscript workflow/scripts/gp_annotation/gene_annotations.R \
             --input {input} \
             --lb_file {params.collected_loci} \
             --mapping_file {params.mapping_file} \

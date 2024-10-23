@@ -1,5 +1,6 @@
 # Load necessary library
 rm(list=ls())
+library(optparse)
 library(data.table)
 library(dplyr)
 library(rtracklayer)
