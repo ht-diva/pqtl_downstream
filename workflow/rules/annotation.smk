@@ -35,7 +35,7 @@ rule gene_and_protein_annotation:
         """
          Rscript workflow/scripts/gp_annotation/gene_annotations.R \
             --input {input} \
-            --mapping_file {params.mapping_file} \
+            --mapping {params.mapping_file} \
             --gtf_file {params.gtf_file} \
             --uniprot_file {params.uniprot_file} \
             --output {output.annotated}
