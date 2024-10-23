@@ -14,7 +14,7 @@ option_list <- list(
   make_option("--output", default=NULL, help="Output path"))
 opt_parser = OptionParser(option_list=option_list);
 opt = parse_args(opt_parser);
-lb_path<-fread(opt$input)
+lb_path<-opt$input
 mapping_file_path<-opt$mapping_file
 gtf_file_path<-opt$gtf_file
 df_uniprot_path<-opt$uniprot_file
