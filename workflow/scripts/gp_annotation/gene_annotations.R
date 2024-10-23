@@ -56,20 +56,22 @@ for (i in 1:nrow(lb)){
 merged_with_mapping <- lb %>%
   left_join(mapping, by = c("phenotype_id" = "target"), relationship = "many-to-many")
 
-merged_with_mapping <- merged_with_mapping[,c(1:22,29,28,32)]
+merged_with_mapping <- merged_with_mapping[,c(1:25,32,31,35)]
 
 group_cols <- c("chr", "start", "end", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF",
                 "MAXF", "BETA", "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ",
-                "HETDF", "LHETP", "phenotype_id", "cis_or_trans", "Entrez_Gene_Name")
+                "HETDF", "LHETP", "phenotype_id", "cis_or_trans", "somamer_version", "new_somamer",
+                "new_uniprot", "Entrez_Gene_Name")
+
 
 # Group by the relevant columns and collapse "UniProt_ID" and "Target_Full_Name"
 collapsed_df <- merged_with_mapping %>%
   group_by(across(all_of(group_cols))) %>%
   summarize(
-    UniProt_ID = paste(unique(na.omit(UniProt_ID)), collapse = "|"),       # concatenate unique "UniProt_ID"
-    Target_Full_Name = paste(unique(na.omit(Target_Full_Name)), collapse = "|")  # concatenate unique "Target_Full_Name"
-  ) %>%
-  ungroup()
+    UniProt_ID = paste(unique(na.omit(UniProt_ID)), collapse = "|"),
+    Target_Full_Name = paste(unique(na.omit(Target_Full_Name)), collapse = "|"),
+    .groups = "drop"
+  )
 
 df_uniprot <- fread(df_uniprot_path, header = TRUE, sep = "\t")
 df_uniprot <- as.data.frame(df_uniprot)
