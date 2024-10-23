@@ -26,7 +26,6 @@ rule gene_and_protein_annotation:
     resources:
         runtimes=lambda wc, attempt: attempt * 20,
     params:
-        collected_loci=config.get("LB_file"),
         mapping_file=config.get("mapping_filepath"),
         gtf_file=config.get("gtf_file"),
         uniprot_file=config.get("uniprot_file"),
@@ -36,7 +35,6 @@ rule gene_and_protein_annotation:
         """
          Rscript workflow/scripts/gp_annotation/gene_annotations.R \
             --input {input} \
-            --lb_file {params.collected_loci} \
             --mapping_file {params.mapping_file} \
             --gtf_file {params.gtf_file} \
             --uniprot_file {params.uniprot_file} \
