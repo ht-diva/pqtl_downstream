@@ -1,21 +1,22 @@
 # Load necessary library
 rm(list=ls())
-library(optparse)
-library(data.table)
-library(dplyr)
-library(rtracklayer)
-library(GenomicRanges)
+
+suppressMessages(library(optparse))
+suppressMessages(library(data.table))
+suppressMessages(library(dplyr))
+suppressMessages(library(rtracklayer))
+suppressMessages(library(GenomicRanges))
 
 option_list <- list(
   make_option("--input", default=NULL, help="Path and file name of LocusBreaker"),
-  make_option("--mapping_file", default=NULL, help="Output path and name for cis trans mapping and annotation from Locus Breaker"),
+  make_option("--mapping", default=NULL, help="Mapping file path for cis and trans"),
   make_option("--gtf_file", default=NULL, help="Path to the folder containing the GTF annotation file"),
   make_option("--uniprot_file", default=NULL, help="Path to the folder containing the list of uniprotkb IDs"),
   make_option("--output", default=NULL, help="Output path"))
 opt_parser = OptionParser(option_list=option_list);
 opt = parse_args(opt_parser);
-lb_path<-opt$input
-mapping_file_path<-opt$mapping_file
+lb<-fread(opt$input)
+mapping<-fread(opt$mapping)
 gtf_file_path<-opt$gtf_file
 df_uniprot_path<-opt$uniprot_file
 
@@ -41,9 +42,9 @@ map <- function(seqId = character(), chr, start, end, mapping_file) {
   }
 }
 
-lb <- read.csv(lb_path)
+
 lb <- lb[order(lb$chr, lb$POS), ]
-mapping <- read.delim(mapping_file_path)
+
 mapping$target<-paste("seq.",gsub("-", ".",mapping$SeqId),sep="")
 mapping$cis_end<-(mapping$TSS+500000)
 mapping$cis_start<-(mapping$TSS-500000)
