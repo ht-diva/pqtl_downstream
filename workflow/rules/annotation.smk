@@ -24,7 +24,7 @@ rule gene_and_protein_annotation:
     output:
         annotated=ws_path("mapped_annotated_LB_gp_ann.csv"),
     resources:
-        runtime=lambda wc, attempt: attempt * 20,
+        runtime=lambda wc, attempt: attempt * 60,
     params:
         mapping_file=config.get("mapping_filepath"),
         gtf_file=config.get("gtf_file"),
