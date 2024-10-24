@@ -78,7 +78,7 @@ df_uniprot <- as.data.frame(df_uniprot)
 merged_uniprot <- collapsed_df %>%
   left_join(df_uniprot, by = c("UniProt_ID" = "Entry"), relationship = "many-to-many")
 
-merged_uniprot <- merged_uniprot[,c(1:24,28)]
+merged_uniprot <- merged_uniprot[,c(1:28)]
 merged_uniprot <- as.data.frame(merged_uniprot)
 
 rsids <- fread("/exchange/healthds/pQTL/CHRIS/summary_stats/raw/alias/seq.13530.5.regenie.gz", header = TRUE, sep = "\t")
