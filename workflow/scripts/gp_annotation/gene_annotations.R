@@ -19,6 +19,7 @@ lb<-fread(opt$input)
 mapping<-fread(opt$mapping)
 gtf_file_path<-opt$gtf_file
 df_uniprot_path<-opt$uniprot_file
+output<-opt$output
 
 map <- function(seqId = character(), chr, start, end, mapping_file) {
   map_temp <- mapping_file[mapping_file$target == seqId, ]
