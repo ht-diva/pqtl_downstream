@@ -43,7 +43,7 @@ def get_final_output():
         final_output.extend(
             expand(
                 ws_path(
-                    "mapped_annotated_LB_gp_ann_lit_annotated.hotspot_ann_single_studies_{single_studies}.csv"
+                    "mapped_annotated_LB_gp_ann_lit_annotated_hotspotted_single_studies_{single_studies}.csv"
                 ),
                 single_studies=config.get("single_studies"),
             )

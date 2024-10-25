@@ -64,4 +64,3 @@ hotspot_finder:
   hotspot_threshold: 50
   lonespot_window_size: 10000000
   lonespot_threshold: 1
-  save_results: True

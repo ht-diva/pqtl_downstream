@@ -65,7 +65,7 @@ rule hostspot_finder:
     input:
         rules.backward_literature_LB.output,
     output:
-        ws_path("mapped_annotated_LB_gp_ann_lit_annotated.hotspot_ann.csv"),
+        ws_path("mapped_annotated_LB_gp_ann_lit_annotated_hotspotted.csv"),
     conda:
         "../scripts/backward_literature/environment.yml"
     params:
@@ -89,7 +89,7 @@ rule hostspot_finder:
         "--hotspot_threshold {params.hotspot_threshold} "
         "--lonespot_window_size {params.lonespot_window_size} "
         "--lonespot_threshold {params.lonespot_threshold} "
-        "--save_results {params.save_results} "
+        "--save_results "
 
 
 rule appending_single_studies_results:
@@ -97,7 +97,7 @@ rule appending_single_studies_results:
         rules.hostspot_finder.output,
     output:
         ws_path(
-            "mapped_annotated_LB_gp_ann_lit_annotated.hotspot_ann_single_studies_{single_studies}.csv"
+            "mapped_annotated_LB_gp_ann_lit_annotated_hotspotted_single_studies_{single_studies}.csv"
         ),
     conda:
         "../envs/single_studies.yml"

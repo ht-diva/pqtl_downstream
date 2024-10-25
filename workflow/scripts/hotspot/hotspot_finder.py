@@ -4,9 +4,13 @@ import pandas as pd
 
 
 def hotspot_finder(file_path, hotspot_window_size, chr_col, start_col, end_col,
-                   hotspot_threshold=50, lonespot_window_size=None, lonespot_threshold=None, save_results=False):
+                   hotspot_threshold=50, lonespot_window_size=None, lonespot_threshold=None, save_results=False, separator=';'):
+    hotspot_window_size = int(hotspot_window_size)
+    hotspot_threshold = int(hotspot_threshold)
+    lonespot_window_size = int(lonespot_window_size)
+    lonespot_threshold = int(lonespot_threshold)
 
-    df = pd.read_csv(file_path)
+    df = pd.read_csv(file_path, sep=separator)
 
     df['hotspot_windows'] = df.apply(lambda row: calculate_covered_windows(row, hotspot_window_size, start_col, end_col), axis=1)
 
@@ -58,12 +62,12 @@ def hotspot_finder(file_path, hotspot_window_size, chr_col, start_col, end_col,
         df['lonespot'] = df.apply(lambda row: is_in_lonespot(row, lonespot_window_size, start_col, end_col, lonespot_count, lonespot_threshold), axis=1)
         df['signal_count_lonespot'] = df.apply(lambda row: count_lonespot(row, lonespot_window_size, start_col, end_col, lonespot_count, lonespot_threshold), axis=1)
     if save_results:
-        output_table_path = file_path.replace(".csv", "_hotspotted_new.csv")
-        output_hotspot_dict_path = file_path.replace(".csv", "_hotspot_dict_new.csv")
-        output_lonespot_dict_path = file_path.replace(".csv", "_lonespot_dict_new.csv")
+        output_table_path = file_path.replace(".csv", "_hotspotted.csv")
+        output_hotspot_dict_path = file_path.replace(".csv", "_hotspot_dict.csv")
+        output_lonespot_dict_path = file_path.replace(".csv", "_lonespot_dict.csv")
 
         # Save the annotated table with hotspots and lonespots
-        df.to_csv(output_table_path, sep="\t", index=False)
+        df.to_csv(output_table_path, sep=separator, index=False)
         print(f"Table with hotspots and lonespots saved to {output_table_path}")
 
         # Save the hotspot count dictionary

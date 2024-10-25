@@ -4,7 +4,7 @@
 file_lit="${snakemake_input[0]}"
 study="${snakemake_output[0]//[^a-zA-Z0-9]/_}"
 study=(${study//_/ })
-study="${study[8]}"
+study="${study[13]}"
 #study=INTERVAL  # Define the study
 # study=CHRIS
 
