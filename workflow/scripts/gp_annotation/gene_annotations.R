@@ -155,19 +155,19 @@ overlapping_genes <- primary_assembly[subjectHits(overlaps)]
 overlapping_genes_tss <- primary_assembly[subjectHits(overlaps_tss)]
 
 # Combine lb_granges with overlapping genes
-lb_granges$gene_id <- NA
+lb_granges$gene <- NA
 lb_granges$description <- NA
 
-lb_granges$gene_id_tss <- NA
+lb_granges$gene_tss <- NA
 lb_granges$description_tss <- NA
 
 # Assign the overlapping gene IDs to the lb_granges
 for (i in seq_along(lb_granges)) {
-  overlapping_gene_id <- unique(overlapping_genes$mcols.gene_id[queryHits(overlaps) == i])
-  lb_granges$gene_id[i] <- paste(overlapping_gene_id, collapse = ", ")
+  overlapping_gene <- unique(overlapping_genes$mcols.gene[queryHits(overlaps) == i])
+  lb_granges$gene[i] <- paste(overlapping_gene, collapse = ", ")
 
-  overlapping_gene_id_tss <- unique(overlapping_genes_tss$mcols.gene_id[queryHits(overlaps_tss) == i])
-  lb_granges$gene_id_tss[i] <- paste(overlapping_gene_id_tss, collapse = ", ")
+  overlapping_gene_tss <- unique(overlapping_genes_tss$mcols.gene[queryHits(overlaps_tss) == i])
+  lb_granges$gene_tss[i] <- paste(overlapping_gene_tss, collapse = ", ")
 
   overlapping_description <- unique(overlapping_genes$mcols.description[queryHits(overlaps) == i])
   lb_granges$description[i] <- paste(overlapping_description, collapse = ", ")
