@@ -44,7 +44,18 @@ map <- function(seqId = character(), chr, start, end, mapping_file) {
 }
 
 
-lb <- lb[order(lb$chr, lb$POS), ]
+colnames_merged_with_mapping <- c("chr", "start", "end", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF",
+                                  "BETA", "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP",
+                                  "phenotype_id", "cis_or_trans", "UniProt_ID", "Target_Full_Name", "Entrez_Gene_Name")
+
+colnames_merged_uniprot <- c("chr", "start", "end", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF", "BETA", 
+                             "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP", "phenotype_id", 
+                             "cis_or_trans", "Entrez_Gene_Name", "UniProt_ID", "Protein names")
+
+colnames_lb_granges_df <- c("chr", "start", "end", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF", "BETA", 
+                            "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP", "phenotype_id", "cis_or_trans",
+                            "Entrez_Gene_Name", "UniProt_ID", "Protein.names", "RSID_merged", "gene_id", "description", "gene_id_tss", 
+                            "description_tss")
 
 mapping$target<-paste("seq.",gsub("-", ".",mapping$SeqId),sep="")
 mapping$cis_end<-(mapping$TSS+500000)
@@ -57,13 +68,11 @@ for (i in 1:nrow(lb)){
 merged_with_mapping <- lb %>%
   left_join(mapping, by = c("phenotype_id" = "target"), relationship = "many-to-many")
 
-merged_with_mapping <- merged_with_mapping[,c(1:25,32,31,35)]
+merged_with_mapping <- merged_with_mapping[, colnames_merged_with_mapping]
 
-group_cols <- c("chr", "start", "end", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF",
-                "MAXF", "BETA", "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ",
-                "HETDF", "LHETP", "phenotype_id", "cis_or_trans", "somamer_version", "new_somamer",
-                "new_uniprot", "Entrez_Gene_Name")
-
+group_cols <- c("chr", "start", "end", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", 
+                "MAXF", "BETA", "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", 
+                "HETDF", "LHETP", "phenotype_id", "cis_or_trans", "Entrez_Gene_Name")
 
 # Group by the relevant columns and collapse "UniProt_ID" and "Target_Full_Name"
 collapsed_df <- merged_with_mapping %>%
@@ -79,8 +88,8 @@ df_uniprot <- as.data.frame(df_uniprot)
 merged_uniprot <- collapsed_df %>%
   left_join(df_uniprot, by = c("UniProt_ID" = "Entry"), relationship = "many-to-many")
 
-merged_uniprot <- merged_uniprot[,c(1:28)]
 merged_uniprot <- as.data.frame(merged_uniprot)
+merged_uniprot <- merged_uniprot[, colnames_merged_uniprot]
 
 rsids <- fread("/exchange/healthds/pQTL/CHRIS/summary_stats/raw/alias/seq.13530.5.regenie.gz", header = TRUE, sep = "\t")
 rsids <- as.data.frame(rsids)
@@ -181,10 +190,9 @@ head(lb_granges)
 lb_granges_df <- as.data.frame(lb_granges)
 colnames(lb_granges_df)
 
-lb_granges_df <- lb_granges_df[,c(6:35)]
 colnames(lb_granges_df) <- gsub("^mcols\\.", "", colnames(lb_granges_df))
 colnames(lb_granges_df)
+lb_granges_df <- lb_granges_df[, colnames_lb_granges_df]
 names(lb_granges_df)[names(lb_granges_df) == "RSID_merged"] <- "RSID"
-colnames(lb_granges_df)
 
 write.table(lb_granges_df, output, sep = "\t", quote = F, row.names = F)
