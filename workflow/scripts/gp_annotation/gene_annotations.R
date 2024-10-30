@@ -68,6 +68,7 @@ for (i in 1:nrow(lb)){
 merged_with_mapping <- lb %>%
   left_join(mapping, by = c("phenotype_id" = "target"), relationship = "many-to-many")
 
+merged_with_mapping <- as.data.frame(merged_with_mapping)
 merged_with_mapping <- merged_with_mapping[, colnames_merged_with_mapping]
 
 group_cols <- c("chr", "start", "end", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", 
