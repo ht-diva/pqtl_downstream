@@ -10,7 +10,7 @@ rule select_best_SNP_from_LocusBreaker:
         mapping=config.get("mapping_filepath"),
     output:
         MR=ws_path("MR_instruments_best_snps_from_LB.txt"),
-        mapped=ws_path("mapped_LB.csv"),
+        mapped=ws_path(select_best_SNP_from_LocusBreaker_output),
     resources:
         runtime=lambda wc, attempt: attempt * 20,
     params:

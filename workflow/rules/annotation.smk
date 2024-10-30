@@ -1,28 +1,8 @@
-rule version_array:
+rule gene_and_protein_annotation:
     input:
         rules.select_best_SNP_from_LocusBreaker.output.mapped,
     output:
-        annotated=ws_path("mapped_annotated_LB.csv"),
-    resources:
-        runtime=lambda wc, attempt: attempt * 20,
-    params:
-        path_to_targets_list=config.get("array_list_path"),
-    conda:
-        "../envs/r_environment.yml"
-    shell:
-        """
-         Rscript workflow/scripts/version_mapping/s01_annotate_version.R \
-            --input {input} \
-            --array_path {params.path_to_targets_list} \
-            --annot_output {output.annotated}
-   """
-
-
-rule gene_and_protein_annotation:
-    input:
-        rules.version_array.output.annotated,
-    output:
-        annotated=ws_path("mapped_annotated_LB_gp_ann.csv"),
+        annotated=ws_path(annotation_outputs["gp"]),
     resources:
         runtime=lambda wc, attempt: attempt * 60,
     params:
@@ -42,11 +22,31 @@ rule gene_and_protein_annotation:
    """
 
 
-rule backward_literature_LB:
+rule version_array:
     input:
         rules.gene_and_protein_annotation.output.annotated,
     output:
-        ws_path("mapped_annotated_LB_gp_ann_lit_annotated.csv"),
+        annotated=ws_path(annotation_outputs["va"]),
+    resources:
+        runtime=lambda wc, attempt: attempt * 20,
+    params:
+        path_to_targets_list=config.get("array_list_path"),
+    conda:
+        "../envs/r_environment.yml"
+    shell:
+        """
+         Rscript workflow/scripts/version_mapping/s01_annotate_version.R \
+            --input {input} \
+            --array_path {params.path_to_targets_list} \
+            --annot_output {output.annotated}
+   """
+
+
+rule backward_literature_LB:
+    input:
+        rules.version_array.output.annotated,
+    output:
+        ws_path(annotation_outputs["bl"]),
     conda:
         "../scripts/backward_literature/environment.yml"
     params:
@@ -65,7 +65,7 @@ rule hostspot_finder:
     input:
         rules.backward_literature_LB.output,
     output:
-        ws_path("mapped_annotated_LB_gp_ann_lit_annotated_hotspotted.csv"),
+        ws_path(annotation_outputs["hf"]),
     conda:
         "../scripts/backward_literature/environment.yml"
     params:
@@ -96,9 +96,7 @@ rule appending_single_studies_results:
     input:
         rules.hostspot_finder.output,
     output:
-        ws_path(
-            "mapped_annotated_LB_gp_ann_lit_annotated_hotspotted_single_studies_{single_studies}.csv"
-        ),
+        ws_path(annotation_outputs["as"].replace(".csv", "_{single_studies}.csv")),
     conda:
         "../envs/single_studies.yml"
     log:
