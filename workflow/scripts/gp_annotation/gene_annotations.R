@@ -48,13 +48,13 @@ colnames_merged_with_mapping <- c("chr", "start", "end", "POS", "SNPID", "EA", "
                                   "BETA", "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP",
                                   "phenotype_id", "cis_or_trans", "UniProt_ID", "Target_Full_Name", "Entrez_Gene_Name")
 
-colnames_merged_uniprot <- c("chr", "start", "end", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF", "BETA", 
-                             "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP", "phenotype_id", 
+colnames_merged_uniprot <- c("chr", "start", "end", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF", "BETA",
+                             "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP", "phenotype_id",
                              "cis_or_trans", "Entrez_Gene_Name", "UniProt_ID", "Protein names")
 
-colnames_lb_granges_df <- c("chr", "start", "end", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF", "BETA", 
+colnames_lb_granges_df <- c("chr", "start", "end", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF", "BETA",
                             "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP", "phenotype_id", "cis_or_trans",
-                            "Entrez_Gene_Name", "UniProt_ID", "Protein.names", "RSID_merged", "gene_id", "description", "gene_id_tss", 
+                            "Entrez_Gene_Name", "UniProt_ID", "Protein.names", "RSID_merged", "gene_id", "description", "gene_id_tss",
                             "description_tss")
 
 mapping$target<-paste("seq.",gsub("-", ".",mapping$SeqId),sep="")
@@ -71,8 +71,8 @@ merged_with_mapping <- lb %>%
 merged_with_mapping <- as.data.frame(merged_with_mapping)
 merged_with_mapping <- merged_with_mapping[, colnames_merged_with_mapping]
 
-group_cols <- c("chr", "start", "end", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", 
-                "MAXF", "BETA", "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", 
+group_cols <- c("chr", "start", "end", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF",
+                "MAXF", "BETA", "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ",
                 "HETDF", "LHETP", "phenotype_id", "cis_or_trans", "Entrez_Gene_Name")
 
 # Group by the relevant columns and collapse "UniProt_ID" and "Target_Full_Name"
@@ -165,10 +165,10 @@ overlapping_genes <- primary_assembly[subjectHits(overlaps)]
 overlapping_genes_tss <- primary_assembly[subjectHits(overlaps_tss)]
 
 # Combine lb_granges with overlapping genes
-lb_granges$gene <- NA
+lb_granges$gene_id <- NA
 lb_granges$description <- NA
 
-lb_granges$gene_tss <- NA
+lb_granges$gene_id_tss <- NA
 lb_granges$description_tss <- NA
 
 # Assign the overlapping gene IDs to the lb_granges
