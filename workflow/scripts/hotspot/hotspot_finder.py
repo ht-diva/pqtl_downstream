@@ -3,7 +3,7 @@ import math
 import pandas as pd
 
 
-def hotspot_finder(file_path, hotspot_window_size, chr_col, start_col, end_col,
+def hotspot_finder(file_path, hotspot_window_size, chr_col, start_col, end_col, suffix,
                    hotspot_threshold=50, lonespot_window_size=None,
                    lonespot_threshold=None, save_results=False, separator=';'):
     hotspot_window_size = int(hotspot_window_size)
@@ -99,7 +99,7 @@ def hotspot_finder(file_path, hotspot_window_size, chr_col, start_col, end_col,
         df['lonespot'] = df.apply(lambda row: is_in_lonespot(row, lonespot_window_size, start_col, end_col, lonespot_count, lonespot_threshold), axis=1)
         df['signal_count_lonespot'] = df.apply(lambda row: count_lonespot(row, lonespot_window_size, start_col, end_col, lonespot_count, lonespot_threshold), axis=1)
     if save_results:
-        output_table_path = file_path.replace(".csv", "_hotspotted.csv")
+        output_table_path = file_path.replace(".csv", f"{suffix}.csv")
         output_hotspot_dict_path = file_path.replace(".csv", "_hotspot_dict.csv")
         output_hotspot_region_path = file_path.replace(".csv", "_hotspot_regions.csv")
         output_lonespot_dict_path = file_path.replace(".csv", "_lonespot_dict.csv")
@@ -185,14 +185,13 @@ def count_lonespot(row, window_size, start_col, end_col, lonespot_count, lonespo
 @click.option("--lonespot_window_size", default=None, required=True, help="lonespot window size")
 @click.option("--lonespot_threshold", default=None, required=True, help="lonespot threshold")
 @click.option("--save_results", required=True, default=False, is_flag=True, help="Table file path")
-def main(file_path, hotspot_window_size, chr_col, start_col, end_col, hotspot_threshold,
-         lonespot_window_size, lonespot_threshold, save_results):
+@click.option("--suffix", required=True, help="Output suffix", default="_hf_ann")
+def main(file_path, hotspot_window_size, chr_col, start_col, end_col, suffix,
+         hotspot_threshold, lonespot_window_size, lonespot_threshold, save_results):
 
     hotspot_finder(
-        file_path,
-        hotspot_window_size, chr_col, start_col,
-        end_col, hotspot_threshold, lonespot_window_size,
-        lonespot_threshold, save_results)
+        file_path, hotspot_window_size, chr_col, start_col, end_col, suffix,
+        hotspot_threshold, lonespot_window_size, lonespot_threshold, save_results)
 
 
 if __name__ == "__main__":
