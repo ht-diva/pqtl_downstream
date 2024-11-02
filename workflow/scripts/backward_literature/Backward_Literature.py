@@ -20,7 +20,9 @@ def load_config(config_path):
     type=click.Choice(["regional_table", "unique_signal_table"], case_sensitive=False),
     help="type of table to process",
 )
-def backward_literature_review_annotation(config_path, file_path, input_type):
+@click.option("--suffix", required=True, help="Output suffix", default="_bl_ann")
+@click.option("--sep", required=True, help="column separator suffix", default=";")
+def backward_literature_review_annotation(config_path, file_path, input_type, suffix, sep):
     """
     Main function to orchestrate the literature review annotation process.
     Handles the connection to the database and processes the tables (regional results - i.e. locus breaker - or unique signals)
@@ -52,7 +54,7 @@ def backward_literature_review_annotation(config_path, file_path, input_type):
 
     # Process data based on the input type: regional table or unique signal table
     if input_type == "regional_table":
-        regional_table = pd.read_csv(config["regional_table"]["file_path"], sep=";")
+        regional_table = pd.read_csv(config["regional_table"]["file_path"], sep=sep)
         regional_table["soma_match"] = "NO"
         regional_table["soma_matching_study"] = ""
         regional_table["soma_matching_number_ids"] = ""
@@ -77,8 +79,8 @@ def backward_literature_review_annotation(config_path, file_path, input_type):
             pos_column,
         )
 
-        output_path = config["regional_table"]["file_path"].replace(".csv", "_lit_annotated.csv")
-        regional_table.to_csv(output_path, index=False, sep=";")
+        output_path = config["regional_table"]["file_path"].replace(".csv", f"{suffix}.csv")
+        regional_table.to_csv(output_path, index=False, sep=sep)
 
     elif input_type == "unique_signal_table":
         unique_signal_table = pd.read_csv(config["unique_signal_table"]["file_path"])
@@ -112,8 +114,8 @@ def backward_literature_review_annotation(config_path, file_path, input_type):
                 pos_column,
             )
 
-        output_path = config["unique_signal_table"]["file_path"].replace(".csv", "_lit_annotated.csv")
-        unique_signal_table.to_csv(output_path, index=False, sep=";")
+        output_path = config["unique_signal_table"]["file_path"].replace(".csv", f"{suffix}.csv")
+        unique_signal_table.to_csv(output_path, index=False, sep=sep)
 
     conn.close()
     print(f"Results updated and saved to {output_path}")
