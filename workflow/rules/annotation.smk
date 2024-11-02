@@ -99,6 +99,8 @@ rule appending_single_studies_results:
         ws_path(annotation_outputs["as"].replace(".csv", "_{single_studies}.csv")),
     conda:
         "../envs/single_studies.yml"
+    params:
+        study="{single_studies}",
     log:
         ws_path("logs/single_studies_{single_studies}.log"),
     resources:
