@@ -60,7 +60,7 @@ cat(nrow(loci), "loci-target pair were built")
 
 
 if (mhc) {
-loci <- loci %>% 
+loci <- loci %>%
   arrange(chr) %>%
   #filter(!is.na(chr)) %>%   # remove trait without significant signals
   filter(!(chr == 6 & !(end < hla.start | start > hla.end)))    # remove HLA region
@@ -71,14 +71,14 @@ loci <- loci %>%
 if (nlp12) {
   loci <- loci %>% filter(!(chr == 19 & (POS > nlp12.start & POS < nlp12.end)))
   cat("Removing lead SNPs in NLP12 region.\n")
-} 
+}
 
 if (nlp12|mhc) {
 cat(nrow(loci), "remaining after filters.\n")
 }
 
 #cat(
-  # "\nOf total", nrow(loci), 
+  # "\nOf total", nrow(loci),
 #  "loci,", nrow(loci) - nrow(ex_mhc),
 #  "loci belonging to MHC and", nrow(ex_nlp12) - nrow(ex_mhc),
 #  "loci belonging to NLRP12 regions were removed.\n"

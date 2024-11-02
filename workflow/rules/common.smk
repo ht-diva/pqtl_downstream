@@ -19,6 +19,23 @@ analytes = (
 )
 
 
+select_best_SNP_from_LocusBreaker_output = "mapped_LB.csv"
+
+outputs = {
+    "gp": "_gp_ann",
+    "va": "_va_ann",
+    "bl": "_bl_ann",
+    "hf": "_hf_ann",
+    "as": "_as_ann",
+}
+
+annotation_output = select_best_SNP_from_LocusBreaker_output
+annotation_outputs = {}
+for suffix, output in outputs.items():
+    annotation_output = annotation_output.replace(".csv", f"{output}.csv")
+    annotation_outputs[suffix] = annotation_output
+
+
 def get_final_output():
     final_output = []
 
@@ -26,14 +43,10 @@ def get_final_output():
         final_output.append(rules.collect_loci.output.ofile),
         final_output.append(rules.select_best_SNP_from_LocusBreaker.output.MR),
         final_output.append(rules.select_best_SNP_from_LocusBreaker.output.mapped),
-        final_output.append(rules.version_array.output.annotated),
-        final_output.append(rules.backward_literature_LB.output),
         final_output.append(rules.heterogenous_filter.output),
         final_output.extend(
             expand(
-                ws_path(
-                    "mapped_annotated_LB_lit_annotated_single_studies_{single_studies}.csv"
-                ),
+                rules.appending_single_studies_results.output,
                 single_studies=config.get("single_studies"),
             )
         ),
@@ -41,14 +54,10 @@ def get_final_output():
     if config.get("input") == "LB":
         final_output.append(rules.select_best_SNP_from_LocusBreaker.output.MR),
         final_output.append(rules.select_best_SNP_from_LocusBreaker.output.mapped),
-        final_output.append(rules.version_array.output.annotated),
-        final_output.append(rules.backward_literature_LB.output),
         final_output.append(rules.heterogenous_filter.output),
         final_output.extend(
             expand(
-                ws_path(
-                    "mapped_annotated_LB_lit_annotated_single_studies_{single_studies}.csv"
-                ),
+                rules.appending_single_studies_results.output,
                 single_studies=config.get("single_studies"),
             )
         ),

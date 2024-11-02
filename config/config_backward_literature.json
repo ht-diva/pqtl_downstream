@@ -3,12 +3,14 @@
         "start_column": "start",
         "end_column": "end",
         "protein_column": "phenotype_id",
+        "uniprot_column": "UniProt_ID",
         "cohorts": "all"
     },
     "unique_signal_table": {
         "chr_column": "Chr",
         "pos_column": "bp",
         "protein_column": "study_id",
+        "uniprot_column": "UniProt_ID",
         "region_size": 500000,
         "cohorts": "all"
     },

@@ -39,3 +39,12 @@ set-resources:
     version_array:
         mem_mb: 2048 + attempt * 2048
         threads: 1
+    gene_and_protein_annotation:
+      mem_mb: 18432 + attempt * 2048
+      threads: 1
+    hostspot_finder:
+      mem_mb: 2048 + attempt * 2048
+      threads: 1
+    appending_single_studies_results:
+      mem_mb: 2048 + attempt * 2048
+      threads: 1
