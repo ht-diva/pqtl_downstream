@@ -54,7 +54,7 @@ colnames_merged_uniprot <- c("chr", "start", "end", "POS", "SNPID", "EA", "NEA",
 
 colnames_lb_granges_df <- c("chr", "start", "end", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF", "BETA",
                             "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP", "phenotype_id", "cis_or_trans",
-                            "Entrez_Gene_Name", "UniProt_ID", "Protein.names", "RSID_merged", "gene_id", "description", "gene_id_tss",
+                            "Entrez_Gene_Name", "UniProt_ID", "Protein.names", "RSID_merged", "gene", "description", "gene_tss",
                             "description_tss")
 
 mapping$target<-paste("seq.",gsub("-", ".",mapping$SeqId),sep="")
@@ -165,10 +165,10 @@ overlapping_genes <- primary_assembly[subjectHits(overlaps)]
 overlapping_genes_tss <- primary_assembly[subjectHits(overlaps_tss)]
 
 # Combine lb_granges with overlapping genes
-lb_granges$gene_id <- NA
+lb_granges$gene <- NA
 lb_granges$description <- NA
 
-lb_granges$gene_id_tss <- NA
+lb_granges$gene_tss <- NA
 lb_granges$description_tss <- NA
 
 # Assign the overlapping gene IDs to the lb_granges
