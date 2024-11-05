@@ -76,8 +76,16 @@ assay_annotation_on_dataset <-
     return(lit)
   }
 
-assay_annotation_on_dataset_by_uniprot <-
-  function(lit, list_k1_k4_k5_uniprot) {
-    lit$new_uniprot <- ifelse(lit$UniProt_ID%in%list_k1_k4_k5_uniprot,"UniProt_previously_assayed","New_UniProt")
-    return(lit)
-  }
+#assay_annotation_on_dataset_by_uniprot <-
+#  function(lit, list_k1_k4_k5_uniprot) {
+#    lit$new_uniprot <- ifelse(lit$UniProt_ID%in%list_k1_k4_k5_uniprot,"UniProt_previously_assayed","New_UniProt")
+#    return(lit)
+# }
+
+assay_annotation_on_dataset_by_uniprot <-function(df, list_k1_k4_k5_uniprot){
+  df$new_uniprot<-unlist(lapply(df$UniProt_ID, function(X){
+    a<-unlist(strsplit(X,split='|',fixed=T))
+    if (TRUE%in%(a%in%list_k1_k4_k5_uniprot)){b<-("UniProt_previously_assayed")}else{b<-("New_UniProt")  }
+    return(b)}))
+    return(df)
+}
