@@ -21,49 +21,20 @@ gtf_file_path<-opt$gtf_file
 df_uniprot_path<-opt$uniprot_file
 output<-opt$output
 
-map <- function(seqId = character(), chr, start, end, mapping_file) {
-  map_temp <- mapping_file[mapping_file$target == seqId, ]
-  if (nrow(map_temp) == 0) {
-    print("seqId not in mapping file")
-    return("trans")
-  } else{
-    map_temp <- map_temp[map_temp$chromosome == chr, ]
-    if (nrow(map_temp) == 0) {
-      return("trans")
-    } else{
-      ir1 <- IRanges(start = map_temp$cis_start, end = map_temp$cis_end)
-      ir2 <- IRanges(start = start, end = end)
-      ov <- countOverlaps(ir1, ir2)
-      if (TRUE %in% ov >= 1) {
-        return("cis")
-      } else{
-        return("trans")
-      }
-    }
-  }
-}
-
-
 colnames_merged_with_mapping <- c("chr", "start", "end", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF",
                                   "BETA", "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP",
-                                  "phenotype_id", "cis_or_trans", "UniProt_ID", "Target_Full_Name", "Entrez_Gene_Name")
+                                  "phenotype_id", "UniProt_ID", "Target_Full_Name", "Entrez_Gene_Name")
 
 colnames_merged_uniprot <- c("chr", "start", "end", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF", "BETA",
                              "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP", "phenotype_id",
-                             "cis_or_trans", "Entrez_Gene_Name", "UniProt_ID", "Protein names")
+                             "Entrez_Gene_Name", "UniProt_ID", "Protein names")
 
 colnames_lb_granges_df <- c("chr", "start", "end", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF", "BETA",
-                            "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP", "phenotype_id", "cis_or_trans",
+                            "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP", "phenotype_id",
                             "Entrez_Gene_Name", "UniProt_ID", "Protein.names", "RSID_merged", "gene", "description", "gene_tss",
                             "description_tss")
 
 mapping$target<-paste("seq.",gsub("-", ".",mapping$SeqId),sep="")
-mapping$cis_end<-(mapping$TSS+500000)
-mapping$cis_start<-(mapping$TSS-500000)
-
-for (i in 1:nrow(lb)){
-  lb$cis_or_trans[i]<-map(lb$phenotype_id[i],lb$chr[i],lb$start[i],lb$end[i],mapping)
-}
 
 merged_with_mapping <- lb %>%
   left_join(mapping, by = c("phenotype_id" = "target"), relationship = "many-to-many")
@@ -73,7 +44,7 @@ merged_with_mapping <- merged_with_mapping[, colnames_merged_with_mapping]
 
 group_cols <- c("chr", "start", "end", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF",
                 "MAXF", "BETA", "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ",
-                "HETDF", "LHETP", "phenotype_id", "cis_or_trans", "Entrez_Gene_Name")
+                "HETDF", "LHETP", "phenotype_id", "Entrez_Gene_Name")
 
 # Group by the relevant columns and collapse "UniProt_ID" and "Target_Full_Name"
 collapsed_df <- merged_with_mapping %>%
