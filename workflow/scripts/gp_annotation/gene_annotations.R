@@ -23,7 +23,7 @@ output<-opt$output
 
 colnames_merged_with_mapping <- c("chr", "start", "end", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF",
                                   "BETA", "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP",
-                                  "phenotype_id", "UniProt_ID", "Target_Full_Name", "Entrez_Gene_Name")
+                                  "phenotype_id", "cis_or_trans", "cis_UniprotID", "Target_Full_Name", "cis_Entrez_Gene_Name")
 
 colnames_merged_uniprot <- c("chr", "start", "end", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF", "BETA",
                              "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP", "phenotype_id",
