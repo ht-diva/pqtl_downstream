@@ -39,7 +39,7 @@ loci_selection:
 
 # MR
 #sumstats_path: '/exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped/output'
-mapping_filepath: 'data/MR/somascan_tss_ncbi_grch37_version_20241209.txt'
+mapping_filepath: '/exchange/healthds/pQTL/Reference_datasets_for_QC_proteomics/Cis_trans_mapping/somascan_tss_ncbi_grch37_version_20241209.txt'
 array_list_path: "data/MR"
 gtf_file: '/exchange/healthds/public_data/reference_genomes/GRCh37/GCF_000001405.25_GRCh37.p13_genomic.gtf'
 uniprot_file: '/exchange/healthds/pQTL/pQTL_workplace/protein_annotation/uniprotkb_AND_reviewed_true_AND_model_o_2024_09_09.tsv'
