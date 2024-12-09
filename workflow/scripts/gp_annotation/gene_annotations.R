@@ -11,6 +11,7 @@ option_list <- list(
   make_option("--input", default=NULL, help="Path and file name of LocusBreaker"),
   make_option("--mapping", default=NULL, help="Mapping file path for cis and trans"),
   make_option("--gtf_file", default=NULL, help="Path to the folder containing the GTF annotation file"),
+  make_option("--ncbi_file", default=NULL, help="Path to the folder containing the txt file. It includes the feature table"),
   make_option("--uniprot_file", default=NULL, help="Path to the folder containing the list of uniprotkb IDs"),
   make_option("--output", default=NULL, help="Output path"))
 opt_parser = OptionParser(option_list=option_list);
@@ -18,6 +19,7 @@ opt = parse_args(opt_parser);
 lb<-fread(opt$input)
 mapping<-fread(opt$mapping)
 gtf_file_path<-opt$gtf_file
+ncbi_file_path<-opt$ncbi_file
 df_uniprot_path<-opt$uniprot_file
 output<-opt$output
 
