@@ -26,17 +26,18 @@ output<-opt$output
 colnames_merged_with_mapping <- c("chromosome", "start.x", "end.x", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF",
                                   "BETA", "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP",
                                   "phenotype_id", "cis_or_trans", "UniProt_ID", "SomaScan_UniProt_ID", "Target_Full_Name", 
-                                  "Entrez_Gene_ID", "SomaScan_Entrez_Gene_ID", "UniProt_EntrezID_match")
+                                  "Entrez_Gene_ID", "SomaScan_Entrez_Gene_ID", "symbol", "UniProt_EntrezID_match")
 
 colnames_merged_uniprot <- c("chromosome", "start.x", "end.x", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF",
                              "BETA", "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP",
                              "phenotype_id", "cis_or_trans", "UniProt_ID", "Protein names", "SomaScan_UniProt_ID", "Target_Full_Name", 
-                             "Entrez_Gene_ID", "SomaScan_Entrez_Gene_ID", "UniProt_EntrezID_match")
+                             "Entrez_Gene_ID", "SomaScan_Entrez_Gene_ID", "symbol", "UniProt_EntrezID_match")
 
 colnames_lb_granges_df <- c("chromosome", "start", "end", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF",
                             "BETA", "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP",
                             "phenotype_id", "cis_or_trans", "UniProt_ID", "Protein.names", "SomaScan_UniProt_ID", "Target_Full_Name", 
-                            "Entrez_Gene_ID", "SomaScan_Entrez_Gene_ID", "UniProt_EntrezID_match", "RSID_merged", "gene", "description", "gene_tss", "description_tss")
+                            "Entrez_Gene_ID", "SomaScan_Entrez_Gene_ID", "symbol", "UniProt_EntrezID_match", "RSID_merged", "gene", "description", 
+                            "gene_tss", "description_tss")
 
 mapping$target<-paste("seq.",gsub("-", ".",mapping$SeqId),sep="")
 
@@ -49,7 +50,7 @@ merged <- merge(mapping, ncbi[ , c("chromosome", "start", "end", "symbol", "Gene
                 all.x = TRUE) 
 
 merged_with_mapping <- lb %>%
-  left_join(mapping, by = c("phenotype_id" = "target"), relationship = "many-to-many")
+  left_join(merged, by = c("phenotype_id" = "target"), relationship = "many-to-many")
 
 merged_with_mapping <- merged_with_mapping[ ,colnames_merged_with_mapping]
 
