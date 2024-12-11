@@ -30,7 +30,7 @@ thresholds:
 #  p4: 1e-06
 #  maf: 1e-04
 #  ppp: 0.99
-  hole: 250000
+  hole: 3000000
 loci_selection:
   NLP12: 1
   MHC: 1
