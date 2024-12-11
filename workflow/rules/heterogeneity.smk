@@ -1,6 +1,6 @@
 rule heterogenous_filter:
     input:
-        rules.version_array.output.annotated,
+        rules.backward_literature_LB.output,
     output:
         ws_path("heterogenous_LB.txt"),
     resources:
