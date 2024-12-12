@@ -23,55 +23,34 @@ ncbi<-fread(opt$ncbi_file)
 df_uniprot_path<-opt$uniprot_file
 output<-opt$output
 
-colnames_merged_with_mapping <- c("chromosome", "start.x", "end.x", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF",
+colnames_merged_with_mapping <- c("chr", "start.x", "end.x", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF",
                                   "BETA", "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP",
                                   "phenotype_id", "cis_or_trans", "UniProt_ID", "SomaScan_UniProt_ID", "Target_Full_Name", 
-                                  "Entrez_Gene_ID", "SomaScan_Entrez_Gene_ID", "symbol", "UniProt_EntrezID_match")
+                                  "Entrez_Gene_ID", "SomaScan_Entrez_Gene_ID", "UniProt_EntrezID_match", "symbol", "Protein.names")
 
-colnames_merged_uniprot <- c("chromosome", "start.x", "end.x", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF",
-                             "BETA", "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP",
-                             "phenotype_id", "cis_or_trans", "UniProt_ID", "Protein names", "SomaScan_UniProt_ID", "Target_Full_Name", 
-                             "Entrez_Gene_ID", "SomaScan_Entrez_Gene_ID", "symbol", "UniProt_EntrezID_match")
-
-colnames_lb_granges_df <- c("chromosome", "start", "end", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF",
+colnames_lb_granges_df <- c("chr", "start.x", "end.x", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF",
                             "BETA", "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP",
                             "phenotype_id", "cis_or_trans", "UniProt_ID", "Protein.names", "SomaScan_UniProt_ID", "Target_Full_Name", 
-                            "Entrez_Gene_ID", "SomaScan_Entrez_Gene_ID", "symbol", "UniProt_EntrezID_match", "RSID_merged", "gene", "description", 
-                            "gene_tss", "description_tss")
+                            "Entrez_Gene_ID", "SomaScan_Entrez_Gene_ID", "symbol", "UniProt_EntrezID_match", "RSID_merged", "gene", 
+                            "description", "gene_tss", "description_tss")
 
 mapping$target<-paste("seq.",gsub("-", ".",mapping$SeqId),sep="")
 
-ncbi <- ncbi[which(ncbi$X..feature=="gene" & ncbi$class=="protein_coding" & ncbi$assembly_unit=="Primary Assembly"), ]
-
-#Add the gene name to the mapping file
-merged <- merge(mapping, ncbi[ , c("chromosome", "start", "end", "symbol", "GeneID")],
-                by.x = c("chromosome", "start", "end", "Entrez_Gene_ID"),
-                by.y = c("chromosome", "start", "end", "GeneID"),
-                all.x = TRUE) 
-
 merged_with_mapping <- lb %>%
-  left_join(merged, by = c("phenotype_id" = "target"), relationship = "many-to-many")
+  left_join(mapping, by = c("phenotype_id" = "target"), relationship = "many-to-many")
 
 merged_with_mapping <- merged_with_mapping[ ,colnames_merged_with_mapping]
-
-df_uniprot <- fread(df_uniprot_path, header = TRUE, sep = "\t")
-df_uniprot <- as.data.frame(df_uniprot)
-merged_uniprot <- collapsed_df %>%
-  left_join(df_uniprot, by = c("UniProt_ID" = "Entry"), relationship = "many-to-many")
-
-merged_uniprot <- as.data.frame(merged_uniprot)
-merged_uniprot <- merged_uniprot[, colnames_merged_uniprot]
 
 rsids <- fread("/exchange/healthds/pQTL/CHRIS/summary_stats/raw/alias/seq.13530.5.regenie.gz", header = TRUE, sep = "\t")
 rsids <- as.data.frame(rsids)
 rsids$CHROM <- as.character(rsids$CHROM)
 
 # Join based on chromosome = CHROM and POS = GENPOS
-merged_result <- merged_uniprot %>%
+merged_result <- merged_with_mapping %>%
   left_join(rsids %>%
               group_by(CHROM, GENPOS) %>%
               summarize(RSID_merged = paste(RSID, collapse = ","), .groups = 'drop'),
-            by = c("chromosome" = "CHROM", "POS" = "GENPOS"))
+            by = c("chr" = "CHROM", "POS" = "GENPOS"))
 
 
 lb <- merged_result
@@ -165,6 +144,8 @@ colnames(lb_granges_df)
 colnames(lb_granges_df) <- gsub("^mcols\\.", "", colnames(lb_granges_df))
 colnames(lb_granges_df)
 lb_granges_df <- lb_granges_df[, colnames_lb_granges_df]
+names(lb_granges_df)[names(lb_granges_df) == "start.x"] <- "start"
+names(lb_granges_df)[names(lb_granges_df) == "end.x"] <- "end"
 names(lb_granges_df)[names(lb_granges_df) == "RSID_merged"] <- "RSID"
 names(lb_granges_df)[names(lb_granges_df) == "gene"] <- "genes_overlapping_CDS"
 names(lb_granges_df)[names(lb_granges_df) == "description"] <- "descriptions_overlapping_CDS"
