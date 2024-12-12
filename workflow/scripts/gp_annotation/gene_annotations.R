@@ -15,14 +15,14 @@ option_list <- list(
 opt_parser = OptionParser(option_list=option_list);
 opt = parse_args(opt_parser);
 lb<-fread(opt$input)
-mapping<-fread(opt$mapping)
+mapping<-read.delim(opt$mapping, sep=",")
 gtf_file_path<-opt$gtf_file
 output<-opt$output
 
 colnames_merged_with_mapping <- c("chr", "start.x", "end.x", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF",
                                   "BETA", "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP",
                                   "phenotype_id", "cis_or_trans", "UniProt_ID", "SomaScan_UniProt_ID", "Target_Full_Name", 
-                                  "Entrez_Gene_ID", "SomaScan_Entrez_Gene_ID", "UniProt_EntrezID_match", "symbol")
+                                  "Entrez_Gene_ID", "SomaScan_Entrez_Gene_ID", "UniProt_EntrezID_match", "symbol", "Protein.names")
 
 colnames_lb_granges_df <- c("chr", "start.x", "end.x", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF",
                             "BETA", "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP",
@@ -30,13 +30,13 @@ colnames_lb_granges_df <- c("chr", "start.x", "end.x", "POS", "SNPID", "EA", "NE
                             "Entrez_Gene_ID", "SomaScan_Entrez_Gene_ID", "symbol", "UniProt_EntrezID_match", "RSID_merged", "gene", 
                             "description", "gene_tss", "description_tss")
 
+lb$chr <- as.character(lb$chr)
 mapping$target<-paste("seq.",gsub("-", ".",mapping$SeqId),sep="")
 
 merged_with_mapping <- lb %>%
   left_join(mapping, by = c("phenotype_id" = "target"), relationship = "many-to-many")
 
-#merged_with_mapping <- merged_with_mapping %>% select(all_of(colnames_merged_with_mapping))
-merged_with_mapping <- merged_with_mapping[, ..colnames_merged_with_mapping]
+merged_with_mapping <- merged_with_mapping %>% select(all_of(colnames_merged_with_mapping))
 
 rsids <- fread("/exchange/healthds/pQTL/CHRIS/summary_stats/raw/alias/seq.13530.5.regenie.gz", header = TRUE, sep = "\t")
 rsids <- as.data.frame(rsids)
@@ -140,8 +140,7 @@ colnames(lb_granges_df)
 
 colnames(lb_granges_df) <- gsub("^mcols\\.", "", colnames(lb_granges_df))
 colnames(lb_granges_df)
-#lb_granges_df <- lb_granges_df %>% select(all_of(colnames_lb_granges_df))
-lb_granges_df <- lb_granges_df[, ..colnames_lb_granges_df]
+lb_granges_df <- lb_granges_df %>% select(all_of(colnames_lb_granges_df))
 
 names(lb_granges_df)[names(lb_granges_df) == "start.x"] <- "start"
 names(lb_granges_df)[names(lb_granges_df) == "end.x"] <- "end"
