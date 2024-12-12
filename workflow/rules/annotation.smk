@@ -7,9 +7,7 @@ rule gene_and_protein_annotation:
         runtime=lambda wc, attempt: attempt * 60,
     params:
         mapping_file=config.get("mapping_filepath"),
-        ncbi_file=config.get("ncbi_file"),
         gtf_file=config.get("gtf_file"),
-        uniprot_file=config.get("uniprot_file"),
     conda:
         "../envs/r_environment.yml"
     shell:
@@ -17,9 +15,7 @@ rule gene_and_protein_annotation:
          Rscript workflow/scripts/gp_annotation/gene_annotations.R \
             --input {input} \
             --mapping {params.mapping_file} \
-            --ncbi_file {params.ncbi_file} \
             --gtf_file {params.gtf_file} \
-            --uniprot_file {params.uniprot_file} \
             --output {output.annotated}
    """
 
