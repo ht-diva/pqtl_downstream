@@ -15,20 +15,21 @@ option_list <- list(
 opt_parser = OptionParser(option_list=option_list);
 opt = parse_args(opt_parser);
 lb<-fread(opt$input)
-mapping<-read.delim(opt$mapping, sep=",")
+mapping<-read.delim(opt$mapping)
 gtf_file_path<-opt$gtf_file
 output<-opt$output
 
 colnames_merged_with_mapping <- c("chr", "start.x", "end.x", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF",
                                   "BETA", "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP",
-                                  "phenotype_id", "cis_or_trans", "UniProt_ID", "SomaScan_UniProt_ID", 
-                                  "Entrez_Gene_ID", "SomaScan_Entrez_Gene_ID", "UniProt_EntrezID_match", "symbol", "Protein.names")
+                                  "phenotype_id", "cis_or_trans", "UniProt_ID", "SomaScan_UniProt_ID",
+                                  "Entrez_Gene_ID", "SomaScan_Entrez_Gene_ID", "UniProt_EntrezID_match", "symbol",
+                                  "Protein.names", "Ensembl")
 
 colnames_lb_granges_df <- c("chr", "start.x", "end.x", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF",
                             "BETA", "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP",
-                            "phenotype_id", "cis_or_trans", "UniProt_ID", "Protein.names", "SomaScan_UniProt_ID", 
-                            "Entrez_Gene_ID", "SomaScan_Entrez_Gene_ID", "symbol", "UniProt_EntrezID_match", "RSID_merged", "gene", 
-                            "description", "gene_tss", "description_tss")
+                            "phenotype_id", "cis_or_trans", "UniProt_ID", "SomaScan_UniProt_ID",
+                            "Entrez_Gene_ID", "SomaScan_Entrez_Gene_ID", "UniProt_EntrezID_match", "symbol",
+                            "Protein.names", "Ensembl", "RSID_merged", "gene", "description", "gene_tss", "description_tss")
 
 lb$chr <- as.character(lb$chr)
 mapping$target<-paste("seq.",gsub("-", ".",mapping$SeqId),sep="")
