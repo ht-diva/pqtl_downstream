@@ -1,6 +1,6 @@
 input: "LB" # This flag can be LB or conditional or run_LB
 #LB_file: "data/collected_loci_excluding_mhc.csv"
-LB_file: "/scratch/dariush.ghasemi/projects/pqtl_pipeline_finemap/results/meta_hole_3M/break/collected_loci_excluding_mhc.csv"
+LB_file: "/exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped_filtered/16-Dec-24_collected_loci_excluding_mhc.csv"
 
 run:
   delivery: False
