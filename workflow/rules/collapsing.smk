@@ -1,8 +1,8 @@
-rule collapsing:
+rule collapse:
     input:
         rules.backward_literature_LB.output,
     output:
-        collapsed=ws_path(mapped_LB_collapsed),
+        collapsed=ws_path("mapped_LB_collapsed.csv"),
     resources:
         runtime=lambda wc, attempt: attempt * 20,
     params:

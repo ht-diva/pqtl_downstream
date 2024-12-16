@@ -44,7 +44,7 @@ def get_final_output():
         final_output.append(rules.select_best_SNP_from_LocusBreaker.output.MR),
         final_output.append(rules.select_best_SNP_from_LocusBreaker.output.mapped),
         final_output.append(rules.heterogenous_filter.output),
-        final_output.append(rules.collapsing.output),
+        final_output.append(rules.collapse.output),
         final_output.extend(
             expand(
                 rules.appending_single_studies_results.output,
@@ -56,7 +56,7 @@ def get_final_output():
         final_output.append(rules.select_best_SNP_from_LocusBreaker.output.MR),
         final_output.append(rules.select_best_SNP_from_LocusBreaker.output.mapped),
         final_output.append(rules.heterogenous_filter.output),
-        final_output.append(rules.collapsing.output),
+        final_output.append(rules.collapse.output),
         final_output.extend(
             expand(
                 rules.appending_single_studies_results.output,

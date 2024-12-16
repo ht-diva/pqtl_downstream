@@ -61,7 +61,7 @@ rule backward_literature_LB:
 
 rule hostspot_finder:
     input:
-        rules.collapsing.output.collapsed,
+        rules.backward_literature_LB.output,
     output:
         ws_path(annotation_outputs["hf"]),
     conda:
