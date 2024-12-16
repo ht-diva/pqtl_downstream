@@ -21,12 +21,12 @@ output<-opt$output
 
 colnames_merged_with_mapping <- c("chr", "start.x", "end.x", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF",
                                   "BETA", "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP",
-                                  "phenotype_id", "cis_or_trans", "UniProt_ID", "SomaScan_UniProt_ID", "Target_Full_Name", 
+                                  "phenotype_id", "cis_or_trans", "UniProt_ID", "SomaScan_UniProt_ID", 
                                   "Entrez_Gene_ID", "SomaScan_Entrez_Gene_ID", "UniProt_EntrezID_match", "symbol", "Protein.names")
 
 colnames_lb_granges_df <- c("chr", "start.x", "end.x", "POS", "SNPID", "EA", "NEA", "EAF", "SEF", "MINF", "MAXF",
                             "BETA", "SE", "DIRECTION", "MLOG10P", "N", "HETISQ", "HETCHISQ", "HETDF", "LHETP",
-                            "phenotype_id", "cis_or_trans", "UniProt_ID", "Protein.names", "SomaScan_UniProt_ID", "Target_Full_Name", 
+                            "phenotype_id", "cis_or_trans", "UniProt_ID", "Protein.names", "SomaScan_UniProt_ID", 
                             "Entrez_Gene_ID", "SomaScan_Entrez_Gene_ID", "symbol", "UniProt_EntrezID_match", "RSID_merged", "gene", 
                             "description", "gene_tss", "description_tss")
 
