@@ -1,14 +1,28 @@
-library(IRanges)
+suppressMessages(library(data.table))
+suppressMessages(library(optparse))
+suppressMessages(library(IRanges))
+suppressMessages(library(dplyr))
+
+option_list <- list(
+  make_option("--input", default=NULL, help="Path and file name of LocusBreaker with lit cis_trans/version/gene and protein name/literature review annotation"),
+  make_option("--output", default=NULL, help="Output path and name for collapsed annotated LB"),
+  make_option("--mapping", default=NULL, help="Mapping file path for cis and trans"))
+opt_parser = OptionParser(option_list=option_list);
+opt = parse_args(opt_parser);
+LB<-fread(opt$input)
+output_path<-opt$output
+mapping<-fread(opt$mapping)
+
 
 ##prepare mapping file
-mapping_file<-fread("/exchange/healthds/pQTL/Reference_datasets_for_QC_proteomics/Cis_trans_mapping/somascan_tss_ncbi_grch37_version_20241212.txt")
+mapping_file<-fread(mapping)
 mapping_file$SeqId<-paste("seq.",gsub("-", ".",mapping_file$SeqId),sep="")  
 mapping_file$cis_end<-(mapping_file$TSS+500000)
 mapping_file$cis_start<-(mapping_file$TSS-500000)
 
 
-###load file###TO RM IN SM
-LB<-fread("/scratch/giulia.pontali/LB/locus_breaker_annotation_2024_12_12.txt")
+# ###load file###TO RM IN SM
+# LB<-fread("/scratch/giulia.pontali/LB/locus_breaker_annotation_2024_12_12.txt")
 
 ##save original col names and create a locus ID
 col<-colnames(LB)
@@ -130,8 +144,8 @@ LB<-rbind(LB_trans,LB_cis)
 LB<-LB[order(LB[,which(colnames(LB)=="chr")], LB[,which(colnames(LB)=="POS")]), ]
 
  
-seq.20187.10
-View()
-a<-LB_cis[LB_cis$phenotype_id=="seq.20187.10",]
+##save
+fwrite(LB,output_path)
+
  
   

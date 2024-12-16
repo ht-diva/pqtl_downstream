@@ -48,3 +48,6 @@ set-resources:
     appending_single_studies_results:
       mem_mb: 2048 + attempt * 2048
       threads: 1
+    collapsing:
+      mem_mb: 2048 + attempt * 2048
+      threads: 1
