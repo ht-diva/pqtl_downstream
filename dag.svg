@@ -3,26 +3,23 @@ digraph snakemake_dag {
     node[shape=box, style=rounded, fontname=sans,                 fontsize=10, penwidth=2];
     edge[penwidth=2, color=grey];
 	0[label = "all", color = "0.42 0.6 0.85", style="rounded"];
-	1[label = "select_best_SNP_from_LocusBreaker", color = "0.18 0.6 0.85", style="rounded"];
-	2[label = "heterogenous_filter", color = "0.12 0.6 0.85", style="rounded"];
-	3[label = "backward_literature_LB", color = "0.30 0.6 0.85", style="rounded"];
-	4[label = "version_array", color = "0.00 0.6 0.85", style="rounded"];
-	5[label = "gene_and_protein_annotation", color = "0.36 0.6 0.85", style="rounded"];
+	1[label = "select_best_SNP_from_LocusBreaker", color = "0.06 0.6 0.85", style="rounded"];
+	2[label = "heterogenous_filter", color = "0.55 0.6 0.85", style="rounded"];
+	3[label = "backward_literature_LB", color = "0.12 0.6 0.85", style="rounded"];
+	4[label = "version_array", color = "0.36 0.6 0.85", style="rounded"];
+	5[label = "gene_and_protein_annotation", color = "0.48 0.6 0.85", style="rounded"];
 	6[label = "collapse", color = "0.24 0.6 0.85", style="rounded"];
-	7[label = "appending_single_studies_results\nsingle_studies: CHRIS", color = "0.61 0.6 0.85", style="rounded"];
-	8[label = "hostspot_finder", color = "0.55 0.6 0.85", style="rounded"];
-	9[label = "appending_single_studies_results\nsingle_studies: INTERVAL", color = "0.61 0.6 0.85", style="rounded"];
-	1 -> 0
-	2 -> 0
+	7[label = "appending_single_studies_results", color = "0.18 0.6 0.85", style="rounded"];
+	8[label = "hostspot_finder", color = "0.30 0.6 0.85", style="rounded"];
 	6 -> 0
+	2 -> 0
+	1 -> 0
 	7 -> 0
-	9 -> 0
 	3 -> 2
 	4 -> 3
 	5 -> 4
 	1 -> 5
 	3 -> 6
 	8 -> 7
-	3 -> 8
-	8 -> 9
+	6 -> 8
 }            

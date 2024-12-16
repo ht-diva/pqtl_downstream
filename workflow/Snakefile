@@ -13,7 +13,6 @@ include: "rules/locus_breaker.smk"
 include: "rules/mr_instruments.smk"
 include: "rules/annotation.smk"
 include: "rules/heterogeneity.smk"
-include: "rules/collapsing.smk"
 
 
 rule all:
