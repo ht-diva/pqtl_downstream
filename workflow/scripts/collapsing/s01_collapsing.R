@@ -53,7 +53,7 @@ for (i in unique(f_LB_trans_2$loc_ID)){
   out$unip_matching_study<-paste(unique(temp$unip_matching_study),collapse="|")
   out$unip_matching_number_ids<-paste(unique(temp$unip_matching_number_ids),collapse="|")
   out$uniprot_match<-ifelse("YES"%in%(temp$uniprot_match),"YES","NO")
-  out$new_uniprot<-ifelse("UniProt_previously_assayed"%in%(temp$uniprot_match),"UniProt_previously_assayed","New_UniProt")
+  out$new_uniprot<-ifelse("UniProt_previously_assayed"%in%(temp$new_uniprot),"UniProt_previously_assayed","New_UniProt")
 df_trans<-rbind(df_trans,out)
 }
 ##restrict to the original colum (in theory not needed - to check)
@@ -98,7 +98,7 @@ for (i in unique(f_LB_cis_2$loc_ID)){
     ##version array
     ##check if any unmatch among the main:
     ##if yes, if anny already assessed in all -> "already assessed", otherwise "newly"
-    out$new_uniprot<-ifelse("UniProt_previously_assayed"%in%(temp$uniprot_match),"UniProt_previously_assayed","New_UniProt")
+    out$new_uniprot<-ifelse("UniProt_previously_assayed"%in%(temp$new_uniprot),"UniProt_previously_assayed","New_UniProt")
     ##lit review uniprot
     ##check if any unmatch among the main:
     ##if yes, if any match it in all -> "match lit", otherwise "new"
@@ -115,7 +115,7 @@ for (i in unique(f_LB_cis_2$loc_ID)){
     ##version array
     ##check if any unmatch among the main:
     ##if no, if any "already assessed" in main-> "already assessed", otherwise "newly"
-    out$new_uniprot<-ifelse("UniProt_previously_assayed"%in%(temp$uniprot_match[temp$MAIN==TRUE]),"UniProt_previously_assayed","New_UniProt")
+    out$new_uniprot<-ifelse("UniProt_previously_assayed"%in%(temp$new_uniprot[temp$MAIN==TRUE]),"UniProt_previously_assayed","New_UniProt")
     ##lit review uniprot
     ##check if any unmatch among the main:
     ##if no, if any "match lit" in main-> "match lit", otherwise "new"

@@ -105,7 +105,7 @@ def hotspot_finder(file_path, hotspot_window_size, chr_col, start_col, end_col, 
         output_lonespot_dict_path = file_path.replace(".csv", "_lonespot_dict.csv")
 
         # Save the annotated table with hotspots and lonespots
-        df.to_csv(output_table_path, sep=separator, index=False)
+        df.to_csv(output_table_path, sep=";", index=False)
         print(f"Table with hotspots and lonespots saved to {output_table_path}")
 
         # Save the hotspot count dictionary
