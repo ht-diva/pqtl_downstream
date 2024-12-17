@@ -11,7 +11,7 @@ opt_parser = OptionParser(option_list=option_list);
 opt = parse_args(opt_parser);
 LB<-fread(opt$input)
 output_path<-opt$output
-mapping<-fread(opt$mapping)
+mapping_file<-fread(opt$mapping)
 
 
 ##prepare mapping file
