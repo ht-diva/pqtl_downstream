@@ -15,22 +15,14 @@ mapping<-fread(opt$mapping)
 
 
 ##prepare mapping file
-mapping_file<-fread(mapping)
 mapping_file$SeqId<-paste("seq.",gsub("-", ".",mapping_file$SeqId),sep="")  
 mapping_file$cis_end<-(mapping_file$TSS+500000)
 mapping_file$cis_start<-(mapping_file$TSS-500000)
 
 
-# ###load file###TO RM IN SM
-# LB<-fread("/scratch/giulia.pontali/LB/locus_breaker_annotation_2024_12_12.txt")
-
 ##save original col names and create a locus ID
 col<-colnames(LB)
 LB$loc_ID<-paste(LB$SNPID,LB$phenotype_id,sep="_")
-##manually add empty colums for test: TO RM IN SM
-df<-data.frame(matrix(ncol = 5, nrow = nrow(LB)))
-colnames(df)<-c("unip_matching_signal","unip_matching_study","unip_matching_number_ids","uniprot_match","new_uniprot")
-LB<-cbind(LB,df)
 ###divide LB in LB cis and LB trans
 LB_cis<-LB  %>%
   filter(cis_or_trans=="cis")
@@ -46,10 +38,10 @@ f_LB_trans_2<-LB_trans
 ###collapsing trans LB
 df_trans<-data.frame(matrix(ncol = ncol(f_LB_trans_2), nrow = 0))
 colnames(df_trans) <- colnames(f_LB_trans_2) ###here in SM replace all f_LB_trans_2 by LB_trans
-a<-0
+# a<-0
 for (i in unique(f_LB_trans_2$loc_ID)){
-  a<-a+1
-  print(a)
+  # a<-a+1
+  # print(a)
   temp<-f_LB_trans_2[f_LB_trans_2$loc_ID==i,]
   out<-temp[1,]
   out$UniProt_ID<-paste(unique(temp$UniProt_ID),collapse="|")
@@ -77,13 +69,13 @@ df_cis<-data.frame(matrix(ncol = ncol(f_LB_cis_2), nrow = 0))
 colnames(df_cis) <- colnames(f_LB_cis_2)
 a<-0
 for (i in unique(f_LB_cis_2$loc_ID)){
-  a<-a+1
-  print(a)
+   a<-a+1
+   print(a)
   temp<-f_LB_cis_2[f_LB_cis_2$loc_ID==i,]
   ir1<-IRanges(start=temp$start[1],end=temp$end[1])
   seqId<-unique(temp$phenotype_id)
   ###define the main row(s)
-  map_temp <- mapping_file[mapping_file$SeqId == seqId,]
+  map_temp <- mapping_file[mapping_file$target == seqId,]
   for (j in 1:nrow(temp)){
     map_temp_2 <- map_temp[map_temp$symbol == temp$symbol[j], ]
     ir2<-IRanges(start = map_temp_2$cis_start, end = map_temp_2$cis_end)
@@ -141,7 +133,7 @@ LB_cis<-df_cis%>%
   select(any_of(col))
 
 LB<-rbind(LB_trans,LB_cis)
-LB<-LB[order(LB[,which(colnames(LB)=="chr")], LB[,which(colnames(LB)=="POS")]), ]
+LB<-LB[order(chr,POS)]
 
  
 ##save
