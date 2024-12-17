@@ -5,7 +5,7 @@ import pandas as pd
 
 def hotspot_finder(file_path, hotspot_window_size, chr_col, start_col, end_col, suffix,
                    hotspot_threshold=50, lonespot_window_size=None,
-                   lonespot_threshold=None, save_results=False, separator=';'):
+                   lonespot_threshold=None, save_results=False, separator=','):
     hotspot_window_size = int(hotspot_window_size)
     hotspot_threshold = int(hotspot_threshold)
     lonespot_window_size = int(lonespot_window_size)
