@@ -25,6 +25,7 @@ outputs = {
     "gp": "_gp_ann",
     "va": "_va_ann",
     "bl": "_bl_ann",
+    "cl": "_collapsed",
     "hf": "_hf_ann",
     "as": "_as_ann",
 }
