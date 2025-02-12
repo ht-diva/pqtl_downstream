@@ -3,15 +3,15 @@ input: "LB" # This flag can be LB or conditional or run_LB
 LB_file: "/exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped_filtered/16-Dec-24_collected_loci_excluding_mhc.csv"
 
 run:
-  delivery: False
+  delivery: FALSE
 
 # paths
-workspace_path: 'results_test_MHC'
-destination_path: 'destination_test_MHC'
+workspace_path: 'results_test'
+destination_path: 'dest'
 
 
 # LB
-sumstats_list: 'config/example.txt'
+sumstats_list: 'config/qced_filtered_meta_path.txt'
 labels:
   chr_label: "'##CHR'"
   pos_label: "POS"
@@ -33,15 +33,15 @@ thresholds:
 #  ppp: 0.99
   hole: 3000000
 loci_selection:
-  NLP12: 1
-  MHC: 1
+  NLP12: 0
+  MHC: 0
   build: 37
 
 
 # MR
 #sumstats_path: '/exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped/output'
 mapping_filepath: '/exchange/healthds/pQTL/Reference_datasets_for_QC_proteomics/Cis_trans_mapping/somascan_tss_ncbi_grch37_ensembl_version_20241216.txt'
-array_list_path: "data/MR"
+array_list_path: "data"
 gtf_file: '/exchange/healthds/public_data/reference_genomes/GRCh37/GCF_000001405.25_GRCh37.p13_genomic.gtf'
 params:
   nef: 3978
