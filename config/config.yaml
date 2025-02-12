@@ -35,14 +35,14 @@ thresholds:
 loci_selection:
   NLP12: 0
   MHC: 0
-  build: 37
+  build: 38
 
 
 # MR
 #sumstats_path: '/exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped/output'
-mapping_filepath: '/exchange/healthds/pQTL/Reference_datasets_for_QC_proteomics/Cis_trans_mapping/somascan_tss_ncbi_grch37_ensembl_version_20241216.txt'
+mapping_filepath: '/exchange/healthds/pQTL/BELIEVE/Cis_trans_mapping/Build38_mapping_file/results/somascan_tss_ncbi_grch38_version_20250104.txt'
 array_list_path: "data"
-gtf_file: '/exchange/healthds/public_data/reference_genomes/GRCh37/GCF_000001405.25_GRCh37.p13_genomic.gtf'
+gtf_file: '/exchange/healthds/pQTL/BELIEVE/Cis_trans_mapping/Build38_mapping_file/GCF_000001405.40_GRCh38.p14_genomic.gtf'
 params:
   nef: 3978
   Isquare: 90
