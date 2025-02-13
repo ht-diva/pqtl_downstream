@@ -15,5 +15,5 @@
         "cohorts": "all"
     },
     "database_path": "workflow/scripts/backward_literature/pqtl_literature_database.db",
-    "reference_genome": "37"
+    "reference_genome": "38"
 }
