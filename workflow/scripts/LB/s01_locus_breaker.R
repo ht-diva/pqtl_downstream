@@ -126,7 +126,9 @@ create_flag_file <- function(outdir) {
   flag_file <- paste0(outdir, "_completed.flag")
   file.create(flag_file)
 }
+###########################################################
 
+####################################################################
 # function to find the index variants at each locus
 check_signif <- function(x){
   ### Check if there's any SNP at p-value lower than the set threshold. Otherwise stop here

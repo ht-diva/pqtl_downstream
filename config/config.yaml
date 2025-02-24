@@ -6,14 +6,14 @@ run:
   delivery: FALSE
 
 # paths
-workspace_path: 'results_BELIEVE'
+workspace_path: 'results_BELIEVE_LB'
 destination_path: 'dest'
 
 
 # LB
 sumstats_list: '/scratch/solene.cadiou/LB_Believe_2025/pqtl_downstream/config/believe_filtered_harmonized_sumstats.txt'
 labels:
-  chr_label: "'##CHR'"
+  chr_label: "CHR"
   pos_label: "POS"
 #  snpid_label: "SNPID"
 #  key_label: "PREVIOUS_ID"
