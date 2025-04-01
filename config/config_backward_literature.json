@@ -14,6 +14,6 @@
         "region_size": 500000,
         "cohorts": "all"
     },
-    "database_path": "workflow/scripts/backward_literature/pqtl_literature_database.db",
+    "database_path": "workflow/scripts/backward_literature/pqtl_literature_database_apr25.db",
     "reference_genome": "37"
 }
