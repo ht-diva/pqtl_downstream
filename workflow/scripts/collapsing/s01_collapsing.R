@@ -119,9 +119,9 @@ for (i in unique(f_LB_cis_2$loc_ID)){
     ##lit review uniprot
     ##check if any unmatch among the main:
     ##if no, if any "match lit" in main-> "match lit", otherwise "new"
-    out$unip_matching_signal<-paste(unique(temp$unip_matching_signals),collapse="|")
-    out$unip_matching_study<-paste(unique(temp$unip_matching_study),collapse="|")
-    out$unip_matching_number_ids<-paste(unique(temp$unip_matching_number_ids),collapse="|")
+    out$unip_matching_signal<-paste(unique(temp$unip_matching_signals[temp$MAIN==TRUE]),collapse="|")
+    out$unip_matching_study<-paste(unique(temp$unip_matching_study[temp$MAIN==TRUE]),collapse="|")
+    out$unip_matching_number_ids<-paste(unique(temp$unip_matching_number_ids[temp$MAIN==TRUE]),collapse="|")
     out$uniprot_match<-ifelse("YES"%in%(temp$uniprot_match[temp$MAIN==TRUE]),"YES","NO")
       }
  
