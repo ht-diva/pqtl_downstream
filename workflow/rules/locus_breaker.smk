@@ -21,6 +21,10 @@ rule break_locus:
         runtime=lambda wc, attempt: attempt * 60,
     shell:
         """
+        export TMPDIR="{resources.tmpdir}"
+        export TMP="$TMPDIR"
+        export TEMP="$TMPDIR"
+
         # Rscript=`ls /conda-envs/*/bin/Rscript`;
         Rscript workflow/scripts/LB/s01_locus_breaker.R \
             --input {input.gwas} \
