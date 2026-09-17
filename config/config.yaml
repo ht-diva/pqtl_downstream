@@ -40,7 +40,7 @@ loci_selection:
 
 # MR
 #sumstats_path: '/scratch/gianmauro.cuccuru/pqtl_pipeline/believe/results_residuals/output'
-mapping_filepath: '/exchange/healthds/pQTL/BELIEVE/Cis_trans_mapping/Build38_mapping_file/results/somascan_tss_ncbi_grch38_version_20250104.txt'
+mapping_filepath: '/exchange/healthds/pQTL/BELIEVE/Cis_trans_mapping/Build38_mapping_file/results/somascan_tss_ncbi_grch38_version_20251210.txt'
 array_list_path: "data"
 gtf_file: '/exchange/healthds/pQTL/BELIEVE/Cis_trans_mapping/Build38_mapping_file/GCF_000001405.40_GRCh38.p14_genomic.gtf'
 params:

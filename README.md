@@ -1,6 +1,3 @@
-# pQTL downstream analysis
-
-
 # pQTL downstream analysis pipeline
 
 Snakemake pipeline for downstream analysis of pQTL summary statistics.
