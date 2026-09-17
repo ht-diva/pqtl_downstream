@@ -48,7 +48,7 @@ params:
   Isquare: 90
 
 # Backward literature
-BL_config_file: 'config/config_backward_literature.json'
+BL_config_file: 'config/config_backward_literature_believe.json'
 
 # Single studies to be concatenated
 single_studies:

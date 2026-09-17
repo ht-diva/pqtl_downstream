@@ -6,7 +6,6 @@ This workflow is designed to process pQTL summary-statistics files, identify sig
 
 The pipeline can be run locally or on an HPC cluster using the included SLURM profile.
 
----
 
 ## Pipeline overview
 
@@ -19,7 +18,7 @@ workflow/Snakefile
 The main configuration file is:
 
 ```text
-config/config.yaml
+config/config.<project>.yaml
 ```
 
 The Snakefile includes the following rule files:
@@ -47,19 +46,20 @@ The main workflow steps are:
 11. Apply heterogeneity filtering.
 12. Append single-study results.
 
----
 
 ## Repository structure
 
 ```text
 pqtl_downstream/
 ├── config/
-│   ├── config.yaml
-│   ├── config_backward_literature.json
+│   ├── config_backward_literature_believe.json
+│   ├── config_backward_literature_metaanalysis.json
+│   ├── config_believe.yaml
+|   ├── config_metaanalysis.yaml
+|   ├── config_example.yaml.yaml
 │   ├── believe_filtered_harmonized_sumstats.txt
-│   ├── qced_filtered_meta_path.txt
+│   ├── metaanalysis_filtered_harmonized_sumstats.txt
 │   ├── local.txt
-│   ├── test.txt
 │   └── example.txt
 ├── data/
 ├── slurm/
@@ -95,39 +95,80 @@ pqtl_downstream/
 └── README.md
 ```
 
----
 
 ## Installation
 
-### 1. Clone the repository
+Clone the repository:
 
 ```bash
 git clone https://github.com/ht-diva/pqtl_downstream.git
 cd pqtl_downstream
-git checkout believe
 ```
+
+Create or update the Snakemake environment:
+
+```
+make dependencies
+```
+
+For development dependencies:
+
+```
+make dev-dependencies
+```
+
+
 
 ## Configuration
 
-Before running the pipeline, edit:
+The main configuration file defines the input files, output folder, genome build, column names, thresholds, annotation files, and downstream analysis parameters.
 
-```text
-config/config.yaml
+Project configurations are stored as:
+
+```
+config/config.<project>.yaml
 ```
 
-This file defines the input files, output folder, genome build, column names, thresholds, annotation files, and downstream analysis parameters.
+Existing examples include:
+
+- `config/config.example.yaml`;
+- `config/config.believe.yaml`;
+- `config/config.metaanalysis.yam`l.
 
 ---
 
-## Main configuration options
+### Selecting a project
 
-### Input mode
+Use one of the Makefile helpers:
 
-```yaml
-input: "run_LB"
+```
+make project-believe
+make project-metaanalysis
+make project-example
 ```
 
-Supported modes:
+The selected project name is stored in `.project`. If `.project` is absent, the Makefile uses the default project defined by `DEFAULT_PROJECT`.
+
+To remove the current selection:
+
+```
+make clean-project
+```
+
+You can also bypass project selection and call Snakemake with an explicit configuration:
+
+```
+snakemake \
+    --profile slurm \
+    --snakefile workflow/Snakefile \
+    --configfile config/config.believe.yaml
+```
+
+---
+
+### Run options
+
+Supported modes for `input:`:
 
 | Mode | Description |
 |---|---|
@@ -145,7 +186,7 @@ LB_file: "/path/to/collected_loci_excluding_mhc.csv"
 ### Summary-statistics list
 
 ```yaml
-sumstats_list: "/path/to/believe_filtered_harmonized_sumstats.txt"
+sumstats_list: "/config/<project>_filtered_harmonized_sumstats.txt"
 ```
 
 This file should contain one summary-statistics file path per line.
@@ -165,7 +206,7 @@ The pipeline derives the analyte/protein identifier from each file path.
 ### Output directories
 
 ```yaml
-workspace_path: "results_BELIEVE_LB"
+workspace_path: "results"
 destination_path: "dest"
 ```
 
@@ -187,80 +228,50 @@ workspace_path/logs/
 
 The default configuration expects the following columns:
 
-```yaml
-labels:
-  chr_label: "CHR"
-  pos_label: "POS"
-  p_label: "MLOG10P"
-```
+| labels      | believe     | metaanalysis |
+| ----------- | ----------- | ------------ |
+| `chr_label` | `"CHR"`     | `"'##CHR'"`  |
+| `pos_label` | `"POS"`     | `"POS"`      |
+| `p_label`   | `"MLOG10P"` | `"MLOG10P"`  |
 
 Update these values if your summary-statistics files use different column names.
-
-For example, if your file uses `chromosome`, `position`, and `pvalue`, change the config to:
-
-```yaml
-labels:
-  chr_label: "chromosome"
-  pos_label: "position"
-  p_label: "pvalue"
-```
 
 ---
 
 ### LocusBreaker thresholds
 
-```yaml
-thresholds:
-  p1: 1.178411501296253e-11
-  p2: 1e-06
-  hole: 3000000
-```
-
-| Parameter | Description |
-|---|---|
-| `p1` | Primary genome-wide significance threshold. |
-| `p2` | Secondary threshold used during locus construction. |
-| `hole` | Genomic distance used to separate or merge loci. |
+| Parameter | Description | Values (believe) | Values (metaanalysis) |
+|---|---|---|---|
+| `p1` | Primary genome-wide significance threshold. | `1.178411501296253e-11` | `1.256913021618904e-11` |
+| `p2` | Secondary threshold used during locus construction. | `1e-06` | `1e-06` |
+| `hole` | Genomic distance used to separate or merge loci. | `3000000` | `3000000` |
 
 ---
 
 ### Locus-selection settings
 
-```yaml
-loci_selection:
-  NLP12: 0
-  MHC: 0
-  build: 38
-```
-
-| Parameter | Description |
-|---|---|
-| `NLP12` | Toggle for NLP12-specific locus handling. |
-| `MHC` | Toggle for MHC-region handling. |
-| `build` | Genome build used for genomic coordinates. |
+| Parameter | Description | Values (believe) | Values (metaanalysis) |
+|---|---|---|---|
+| `NLP12` | Toggle for NLP12-specific locus handling. | `0` | `0` |
+| `MHC` | Toggle for MHC-region handling. | `0` | `0` |
+| `build` | Genome build used for genomic coordinates. | `38` | `37` |
 
 ---
 
 ### Mapping and annotation files
 
-```yaml
-mapping_filepath: "/path/to/somascan_tss_ncbi_grch38_version_20250104.txt"
-gtf_file: "/path/to/GCF_000001405.40_GRCh38.p14_genomic.gtf"
-array_list_path: "data"
-```
-
-| File | Description |
-|---|---|
-| `mapping_filepath` | Protein/analyte mapping file. |
-| `gtf_file` | GTF annotation file used for gene/protein annotation. |
-| `array_list_path` | Directory containing array-version annotation information. |
+| File | Description | Values (believe) | Values (metaanalysis) |
+|---|---|---|---|
+| `mapping_filepath` | Protein/analyte mapping file. | `"/exchange/healthds/pQTL/BELIEVE/Cis_trans_mapping/Build38_mapping_file/results/somascan_tss_ncbi_grch38_version_20251210.txt"` | `/exchange/healthds/pQTL/Reference_datasets_for_QC_proteomics/Cis_trans_mapping/somascan_tss_ncbi_grch37_ensembl_version_20241216.txt` |
+| `gtf_file` | GTF annotation file used for gene/protein annotation. | `/exchange/healthds/pQTL/BELIEVE/Cis_trans_mapping/Build38_mapping_file/GCF_000001405.40_GRCh38.p14_genomic.gtf` | `/exchange/healthds/public_data/reference_genomes/GRCh37/GCF_000001405.25_GRCh37.p13_genomic.gtf` |
+| `array_list_path` | Directory containing array-version annotation information. | `data` | `data` |
 
 ---
 
 ### Backward-literature configuration
 
 ```yaml
-BL_config_file: "config/config_backward_literature.json"
+BL_config_file: "config/config_backward_literature_<project>.json"
 ```
 
 This JSON file controls the backward-literature annotation step.
@@ -269,41 +280,24 @@ This JSON file controls the backward-literature annotation step.
 
 ### Heterogeneity parameters
 
-```yaml
-params:
-  nef: 4243
-  Isquare: 90
-```
-
-| Parameter | Description |
-|---|---|
-| `nef` | Effective sample-size or analysis-specific parameter used by downstream scripts. |
-| `Isquare` | I-squared threshold used for heterogeneity filtering. |
+| Parameter | Description | Values (believe) | Values (metaanalysis) |
+|---|---|---|---|
+| `nef` | Effective sample-size or analysis-specific parameter used by downstream scripts. | `4243` | `3978` |
+| `Isquare` | I-squared threshold used for heterogeneity filtering. | `90` | `90` |
 
 ---
 
 ### Hotspot finder settings
 
-```yaml
-hotspot_finder:
-  hotspot_window_size: 5000000
-  chr_col: "chr"
-  start_col: "start"
-  end_col: "end"
-  hotspot_threshold: 50
-  lonespot_window_size: 10000000
-  lonespot_threshold: 1
-```
-
-| Parameter | Description |
-|---|---|
-| `hotspot_window_size` | Window size used to detect hotspots. |
-| `chr_col` | Chromosome column name. |
-| `start_col` | Locus start-position column name. |
-| `end_col` | Locus end-position column name. |
-| `hotspot_threshold` | Minimum number of loci required to define a hotspot. |
-| `lonespot_window_size` | Window size used to detect lonespots. |
-| `lonespot_threshold` | Maximum number of loci allowed for lonespot definition. |
+| Parameter | Description | Values (believe) | Values (metaanalysis) |
+|---|---|---|---|
+| `hotspot_window_size` | Window size used to detect hotspots. | `5000000` | `5000000` |
+| `chr_col` | Chromosome column name. | `chr` | `chr` |
+| `start_col` | Locus start-position column name. | `start` | `start` |
+| `end_col` | Locus end-position column name. | `end` | `end` |
+| `hotspot_threshold` | Minimum number of loci required to define a hotspot. | `50` | `50` |
+| `lonespot_window_size` | Window size used to detect lonespots. | `10000000` | `10000000` |
+| `lonespot_threshold` | Maximum number of loci allowed for lonespot definition. | `1` | `1` |
 
 ---
 
@@ -317,76 +311,60 @@ single_studies:
 
 The pipeline creates study-specific appended outputs for each study listed here.
 
----
+
 
 ## Running the pipeline
 
-The repository includes a `Makefile` with common commands.
+### Recommended checks
 
-To see available commands:
+Confirm the selected project:
 
-```bash
-make
+```
+make project-<project>
 ```
 
----
+Inspect the planned jobs without executing them:
 
-### Dry run
-
-Before launching the full workflow, run:
-
-```bash
+```
 make dry-run
 ```
 
-This checks which jobs Snakemake would run without actually executing them.
+Generate a DAG:
 
----
-
-### Run locally
-
-To run the workflow locally:
-
-```bash
-make local-run
+```
+make dag
 ```
 
-This runs Snakemake with local cores and software deployment through Conda and Apptainer/Singularity.
+This writes dag.svg.
 
----
+### Submit the workflow
 
-### Run on SLURM
+Submit the supplied SLURM wrapper:
 
-To run the workflow using the SLURM profile:
-
-```bash
-make run
 ```
-
-This uses:
-
-```text
-slurm/config.yaml
-```
-
-as the Snakemake profile.
-
----
-
-### Submit with sbatch
-
-A wrapper SLURM submission script is provided:
-
-```bash
 sbatch submit.sbatch
 ```
 
-## Notes
+Alternatively, start it through the Makefile from an appropriate execution environment:
 
-This README describes the BELIEVE branch of the pQTL downstream pipeline.
-
-Before running the workflow on a new system, update all absolute paths in `config/config.yaml` and run a dry run:
-
-```bash
-make dry-run
 ```
+make run
+```
+
+### Resume an interrupted workflow
+
+Snakemake normally resumes from the existing outputs. To explicitly rerun incomplete jobs:
+
+```
+make rerun
+```
+
+### Unlock after an interrupted run
+
+If the controlling Snakemake process was killed, the working directory may remain locked. First confirm that no other Snakemake process is using the same directory, then run:
+
+```
+make unlock
+```
+
+Never unlock a directory while another workflow is actively writing the same outputs.
