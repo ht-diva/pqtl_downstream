@@ -140,6 +140,3 @@ LB<-LB[order(chr,POS)]
 # write.csv(LB,output_path,sep=";")
 # write.table(LB,output_path, sep = ";", quote = F, row.names = F)
 fwrite(LB,output_path)
-
- 
-  

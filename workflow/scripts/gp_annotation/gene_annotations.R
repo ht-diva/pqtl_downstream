@@ -37,7 +37,7 @@ mapping$target<-paste("seq.",gsub("-", ".",mapping$SeqId),sep="")
 merged_with_mapping <- lb %>%
   left_join(mapping, by = c("phenotype_id" = "target"), relationship = "many-to-many")
 
-merged_with_mapping <- merged_with_mapping %>% select(all_of(colnames_merged_with_mapping))
+merged_with_mapping <- merged_with_mapping %>% select(any_of(colnames_merged_with_mapping))
 
 rsids <- fread("/exchange/healthds/pQTL/CHRIS/summary_stats/raw/alias/seq.13530.5.regenie.gz", header = TRUE, sep = "\t")
 rsids <- as.data.frame(rsids)
@@ -141,7 +141,7 @@ colnames(lb_granges_df)
 
 colnames(lb_granges_df) <- gsub("^mcols\\.", "", colnames(lb_granges_df))
 colnames(lb_granges_df)
-lb_granges_df <- lb_granges_df %>% select(all_of(colnames_lb_granges_df))
+lb_granges_df <- lb_granges_df %>% select(any_of(colnames_lb_granges_df))
 
 names(lb_granges_df)[names(lb_granges_df) == "start.x"] <- "start"
 names(lb_granges_df)[names(lb_granges_df) == "end.x"] <- "end"

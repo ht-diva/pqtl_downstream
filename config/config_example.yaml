@@ -1,0 +1,66 @@
+input: "run_LB" # This flag can be LB or conditional or run_LB
+#LB_file: "data/collected_loci_excluding_mhc.csv"
+#LB_file: "/exchange/healthds/pQTL/results/META_CHRIS_INTERVAL/qced_sumstats_digits_not_flipped_filtered/16-Dec-24_collected_loci_excluding_mhc.csv"
+
+run:
+  delivery: FALSE
+
+# paths
+workspace_path: 'results_BELIEVE_LB'
+destination_path: 'dest'
+
+
+# LB
+sumstats_list: '/scratch/solene.cadiou/LB_Believe_2025/pqtl_downstream/config/believe_filtered_harmonized_sumstats.txt'
+labels:
+  chr_label: "CHR"
+  pos_label: "POS"
+#  snpid_label: "SNPID"
+#  key_label: "PREVIOUS_ID"
+#  ea_label: "EA"
+#  oa_label: "NEA"
+#  eaf_label: "EAF"
+#  beta_label: "BETA"
+#  se_label: "SE"
+  p_label: "MLOG10P"
+#  n_label: "N"
+thresholds:
+  p1: 1.178411501296253e-11
+  p2: 1e-06
+#  p3: 1.178411501296253e-11
+#  p4: 1e-06
+#  maf: 1e-04
+#  ppp: 0.99
+  hole: 3000000
+loci_selection:
+  NLP12: 0
+  MHC: 0
+  build: 38
+
+
+# MR
+#sumstats_path: '/scratch/gianmauro.cuccuru/pqtl_pipeline/believe/results_residuals/output'
+mapping_filepath: '/exchange/healthds/pQTL/BELIEVE/Cis_trans_mapping/Build38_mapping_file/results/somascan_tss_ncbi_grch38_version_20251210.txt'
+array_list_path: "data"
+gtf_file: '/exchange/healthds/pQTL/BELIEVE/Cis_trans_mapping/Build38_mapping_file/GCF_000001405.40_GRCh38.p14_genomic.gtf'
+params:
+  nef: 4243
+  Isquare: 90
+
+# Backward literature
+BL_config_file: 'config/config_backward_literature_metaanalysis.json'
+
+# Single studies to be concatenated
+single_studies:
+  - CHRIS
+  - INTERVAL
+
+# hotspot_finder
+hotspot_finder:
+  hotspot_window_size: 5000000
+  chr_col: "chr"
+  start_col: "start"
+  end_col: "end"
+  hotspot_threshold: 50
+  lonespot_window_size: 10000000
+  lonespot_threshold: 1

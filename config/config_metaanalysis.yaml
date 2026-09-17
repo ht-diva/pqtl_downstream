@@ -11,7 +11,7 @@ destination_path: 'dest'
 
 
 # LB
-sumstats_list: 'config/qced_filtered_meta_path.txt'
+sumstats_list: 'config/metaanalysis_qced_filtered_harmonized_sumstats.txt'
 labels:
   chr_label: "'##CHR'"
   pos_label: "POS"
@@ -48,7 +48,7 @@ params:
   Isquare: 90
 
 # Backward literature
-BL_config_file: 'config/config_backward_literature.json'
+BL_config_file: 'config/config_backward_literature_believe.json'
 
 # Single studies to be concatenated
 single_studies:
