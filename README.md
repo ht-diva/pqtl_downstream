@@ -131,9 +131,9 @@ config/config.<project>.yaml
 
 Existing examples include:
 
-- `config/config.example.yaml`;
-- `config/config.believe.yaml`;
-- `config/config.metaanalysis.yam`l.
+- `config/config.example.yaml`
+- `config/config.believe.yaml`
+- `config/config.metaanalysis.yaml`
 
 ---
 
