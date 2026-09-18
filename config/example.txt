@@ -1,2 +1,2 @@
-/scratch/gianmauro.cuccuru/pqtl_pipeline/believe/results_residuals/outputs/seq.22813.5/seq.22813.5.gwaslab.tsv.gz
-/scratch/gianmauro.cuccuru/pqtl_pipeline/believe/results_residuals/outputs/seq.4309.59/seq.4309.59.gwaslab.tsv.gz
+data/seq.00001.1.gwaslab.tsv.bgz
+data/seq.00001.2.gwaslab.tsv.bgz

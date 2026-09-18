@@ -1,2 +1,0 @@
-data/seq.00001.1.gwaslab.tsv.bgz
-data/seq.00001.2.gwaslab.tsv.bgz

@@ -8,9 +8,6 @@ min_version("8.4.1")
 containerized: "docker://ghcr.io/ht-diva/pqtl_downstream:732e714"
 
 
-configfile: "config/config.example.yaml"
-
-
 include: "rules/common.smk"
 include: "rules/locus_breaker.smk"
 include: "rules/mr_instruments.smk"
