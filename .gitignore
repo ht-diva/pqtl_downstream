@@ -1,0 +1,11 @@
+# Selected project
+.project
+
+# Snakemake working directories
+.snakemake/
+
+# Log files
+*.log
+
+# Result directories
+results_*/
