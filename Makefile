@@ -41,7 +41,7 @@ all:
 # ----------------------------------------------------------------------
 dag:
 	source $(CONDA_ENV_DIR)/activate $(CONDA_ENV_NAME) && \
-	snakemake --dag | dot -Tsvg > dag.svg
+	snakemake --configfile "$(CONFIGFILE)" --dag | dot -Tsvg > dag.svg
 
 # ----------------------------------------------------------------------
 #  Environment
@@ -57,7 +57,7 @@ dev-dependencies: dependencies
 # ----------------------------------------------------------------------
 dry-run:
 	source $(CONDA_ENV_DIR)/activate $(CONDA_ENV_NAME) && \
-	snakemake --sdm conda --dry-run --profile slurm --snakefile workflow/Snakefile
+	snakemake --configfile "$(CONFIGFILE)" --sdm conda --dry-run --profile slurm --snakefile workflow/Snakefile
 
 # ----------------------------------------------------------------------
 #  Run
@@ -68,23 +68,23 @@ pre-commit:
 
 local-run:
 	source $(CONDA_ENV_DIR)/activate $(CONDA_ENV_NAME) && \
-	snakemake --printshellcmds --sdm conda --sdm apptainer --cores 4 --snakefile workflow/Snakefile
+	snakemake --configfile "$(CONFIGFILE)" --printshellcmds --sdm conda --sdm apptainer --cores 4 --snakefile workflow/Snakefile
 
 run:
 	source $(CONDA_ENV_DIR)/activate $(CONDA_ENV_NAME) && \
-	snakemake --profile slurm --snakefile workflow/Snakefile
+	snakemake --configfile "$(CONFIGFILE)" --profile slurm --snakefile workflow/Snakefile
 
 rerun:
 	source $(CONDA_ENV_DIR)/activate $(CONDA_ENV_NAME) && \
-	snakemake --profile slurm --snakefile workflow/Snakefile --rerun-incomplete --rerun-trigger mtime
+	snakemake --configfile "$(CONFIGFILE)" --profile slurm --snakefile workflow/Snakefile --rerun-incomplete --rerun-trigger mtime
 
 unlock:
 	source $(CONDA_ENV_DIR)/activate $(CONDA_ENV_NAME) && \
-	snakemake --unlock
+	snakemake --configfile "$(CONFIGFILE)" --unlock
 
 dockerfile_:
 	source $(CONDA_ENV_DIR)/activate $(CONDA_ENV_NAME) && \
-	snakemake --containerize --snakefile workflow/Snakefile > Dockerfile
+	snakemake --configfile "$(CONFIGFILE)" --containerize --snakefile workflow/Snakefile > Dockerfile
 
 # ----------------------------------------------------------------------
 #  Project helpers – create/override the .project file
